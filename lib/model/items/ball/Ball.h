@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <array>
-#include "./../../Solid.h"
+#include "./../Solid.h"
 
 class Ball : public Solid
 {
