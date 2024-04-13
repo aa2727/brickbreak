@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-13T12:31:02.909Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="MQ2SChyENh9mkPluA2Gt" version="24.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-13T12:35:33.501Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="AAjvlM4VP-2YpTCEWLsx" version="24.2.3" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1427" dy="1879" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -347,7 +347,7 @@
         <mxCell id="3kA44cYX4WbxwQUwThy1-11" value="&lt;div&gt;+ render(void): void&lt;/div&gt;&lt;div&gt;+ update(void):void&lt;/div&gt;&lt;div&gt;+ clean(void):void&lt;/div&gt;&lt;div&gt;+ handleevent(void):void&lt;/div&gt;&lt;div&gt;+ init(args) : void&lt;br&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="3kA44cYX4WbxwQUwThy1-8">
           <mxGeometry y="60" width="160" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="3kA44cYX4WbxwQUwThy1-12" value="LevelChoiceView" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
+        <mxCell id="3kA44cYX4WbxwQUwThy1-12" value="EndGameView" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" vertex="1" parent="WIyWlLk6GJQsqaUBKTNV-1">
           <mxGeometry x="-530" y="325" width="160" height="140" as="geometry" />
         </mxCell>
         <mxCell id="3kA44cYX4WbxwQUwThy1-13" value="+ field: type" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" vertex="1" parent="3kA44cYX4WbxwQUwThy1-12">
