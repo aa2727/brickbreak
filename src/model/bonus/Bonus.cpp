@@ -1,6 +1,6 @@
 #include "model/bonus/Bonus.h"
 
-// Definition des constructeurs
+// Constructor definitions
 
 Bonus::Bonus()
 {
@@ -17,9 +17,9 @@ Bonus::Bonus(const std::array<int, 2> &pos)
     position = pos;
 }
 
-// Definition du destructeur
+// Destructor definition
 
 Bonus::~Bonus()
 {
-    // rien à faire
+    // nothing to do
 }

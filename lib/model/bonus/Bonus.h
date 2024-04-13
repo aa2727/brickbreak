@@ -13,11 +13,11 @@ protected:
     std::array<int, 2> position;
 
 public:
-    // Constructeurs
+    // Constructors
     Bonus();
     Bonus(int posX, int posY);
     Bonus(const std::array<int, 2> &pos);
-    // Destructeur
+    // Destructor
     ~Bonus();
 };
 #endif
