@@ -9,15 +9,15 @@ class Ball : public Solid
 {
     // data members
 private:
-    std::array<int, 2> direction;
+    std::array<float, 2> direction;
 
     // constructors and destructors
 public:
     Ball();
 
-    Ball(std::array<int, 2> direction);
+    Ball(std::array<float, 2> direction);
 
-    Ball(int dir_x, int dir_y);
+    Ball(float dir_x, float dir_y);
 
     Ball(const Ball &other);
 
@@ -25,13 +25,13 @@ public:
 
     // getters and setters
 public:
-    std::array<int, 2> get_direction();
+    std::array<float, 2> get_direction();
 
-    void set_direction(std::array<int, 2> new_pos);
+    void set_direction(std::array<float, 2> new_pos);
 
     // tools
 public:
-    void move();
+    void move(float speed);
 
     void tick_time();
 };

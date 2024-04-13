@@ -8,15 +8,15 @@ class Solid
 {
     // data members
 private:
-    std::array<int, 2> position;
+    std::array<float, 2> position;
 
     // Constructors and destructors
 public:
     Solid();
 
-    Solid(std::array<int, 2> position);
+    Solid(std::array<float, 2> position);
 
-    Solid(int pos_x, int pos_y);
+    Solid(float pos_x, float pos_y);
 
     Solid(const Solid &other);
 
@@ -24,9 +24,9 @@ public:
 
     // getters and setters
 public:
-    void set_position(std::array<int, 2> new_pos);
+    void set_position(std::array<float, 2> new_pos);
 
-    std::array<int, 2> get_position();
+    std::array<float, 2> get_position();
 
     // tools
 public:
