@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2024-04-13T13:38:31.997Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="bsQsFK2OGq3h3S38siTO" version="24.2.3" type="github">
+<mxfile host="app.diagrams.net" modified="2024-04-13T13:38:53.835Z" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:124.0) Gecko/20100101 Firefox/124.0" etag="tA0za7OO3qmo8gQcVvk1" version="24.2.3" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="1981" dy="1659" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -48,15 +48,6 @@
         </mxCell>
         <mxCell id="FPG22-UwowJ8bbtwbWqP-35" value="bonus" style="shape=folder;fontStyle=1;spacingTop=10;tabWidth=40;tabHeight=14;tabPosition=left;html=1;whiteSpace=wrap;" parent="FPG22-UwowJ8bbtwbWqP-8" vertex="1">
           <mxGeometry x="1039.3373493975903" y="549.21" width="1090.6626506024097" height="423.18" as="geometry" />
-        </mxCell>
-        <mxCell id="FPG22-UwowJ8bbtwbWqP-36" value="" style="group" parent="FPG22-UwowJ8bbtwbWqP-8" vertex="1" connectable="0">
-          <mxGeometry x="1840.4724537246732" y="769.8830303030303" width="261.80137844611534" height="156.06060606060606" as="geometry" />
-        </mxCell>
-        <mxCell id="FPG22-UwowJ8bbtwbWqP-25" value="«enum»&lt;br&gt;&lt;b&gt;BonusType&lt;/b&gt;" style="html=1;whiteSpace=wrap;" parent="FPG22-UwowJ8bbtwbWqP-36" vertex="1">
-          <mxGeometry width="261.80137844611534" height="78.03030303030303" as="geometry" />
-        </mxCell>
-        <mxCell id="FPG22-UwowJ8bbtwbWqP-34" value="" style="html=1;whiteSpace=wrap;" parent="FPG22-UwowJ8bbtwbWqP-36" vertex="1">
-          <mxGeometry y="78.03030303030303" width="261.80137844611534" height="78.03030303030303" as="geometry" />
         </mxCell>
         <mxCell id="FPG22-UwowJ8bbtwbWqP-43" value="BallBonus" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="FPG22-UwowJ8bbtwbWqP-8" vertex="1">
           <mxGeometry x="1091.6546033294544" y="819.58" width="272.2556390977444" height="119.63636363636364" as="geometry" />
