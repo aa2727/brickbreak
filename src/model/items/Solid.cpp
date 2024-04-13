@@ -5,7 +5,7 @@
 Solid::Solid() {}
 
 Solid::Solid(std::array<int, 2> position) {
-    this.position = position;
+    this->position = position;
 }
 
 Solid::Solid(int pos_x, int pos_y) {

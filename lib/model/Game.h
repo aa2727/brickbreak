@@ -2,7 +2,7 @@
 #define GAME_H
 
 #include <vector>
-#include "model/items/Ball.h"
+#include "model/items/ball/Ball.h"
 #include "model/items/Solid.h"
 #include "model/Score.h"
 
@@ -10,14 +10,12 @@ class Game
 {
 public:
     Game();
-    Game(int width, int height);
-    Game(const std::vector<std::vector<int>> &map);
-    Game(const Game &g); // copy constructor
     ~Game();
 
 private:
     std::vector<Ball> balls_in_game;
     std::vector<Solid> solids_in_game;
+    int moving_speed;
     Score score;
     void init();
     void update();
