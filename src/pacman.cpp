@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include "model/bonus/Bonus.h"
 
 #include <iostream>
 
@@ -71,6 +72,7 @@ void draw()
 
 int main(int argc, char** argv)
 {
+    Bonus b = Bonus(1, 2);
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
 		std::cerr <<"Echec de l'initialisation de la SDL "<<SDL_GetError() << std::endl;
