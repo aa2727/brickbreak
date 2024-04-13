@@ -1,4 +1,4 @@
-#include "lib/model/bonus/Bonus.h"
+#include "model/bonus/Bonus.h"
 
 // Definition des constructeurs
 
@@ -15,4 +15,11 @@ Bonus::Bonus(int posX, int posY)
 Bonus::Bonus(const std::array<int, 2> &pos)
 {
     position = pos;
+}
+
+// Definition du destructeur
+
+Bonus::~Bonus()
+{
+    // rien à faire
 }
