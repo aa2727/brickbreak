@@ -27,7 +27,7 @@ public:
 public:
     std::array<int, 2> get_direction();
 
-    void set_direction(std::array<int, 2>);
+    void set_direction(std::array<int, 2> new_pos);
 
     // tools
 public:
