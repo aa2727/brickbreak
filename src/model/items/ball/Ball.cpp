@@ -2,36 +2,40 @@
 
 Ball::Ball() {}
 
-Ball::Ball(std::array<float, 2> direc)
+Ball::Ball(std::array<float, 2> direction)
 {
-    direction = direc;
+    this->direction = direction;
 }
 
 Ball::Ball(float dir_x, float dir_y)
 {
-    direction = {dir_x, dir_y};
+    this->direction = {dir_x, dir_y};
 }
 
 Ball::Ball(const Ball &other)
 {
-    direction = other.direction;
+    this->direction = other.direction;
 }
 
 Ball::~Ball() {}
 
 std::array<float, 2> Ball::get_direction()
 {
-    return direction;
+    return this->direction;
 }
 
 void Ball::set_direction(std::array<float, 2> new_pos)
 {
-    direction = new_pos;
+    this->direction = new_pos;
 }
 
 void Ball::move(float speed)
 {
-    set_position(get_position() + get_direction() * speed);
+    std::array<float, 2> new_pos;
+    for(int i = 0; i < new_pos.size(); i++)
+        new_pos[i] = speed * (get_position()[i] + get_direction()[i]) ;
+
+    set_position(new_pos);
 }
 
 void Ball::tick_time() {}

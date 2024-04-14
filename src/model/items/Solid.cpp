@@ -6,29 +6,29 @@ Solid::Solid() {}
 
 Solid::Solid(std::array<float, 2> pos)
 {
-    position = pos;
+    this->position = pos;
 }
 
 Solid::Solid(float pos_x, float pos_y)
 {
-    position = {pos_x, pos_y};
+    this->position = {pos_x, pos_y};
 }
 
 Solid::Solid(const Solid &other)
 {
-    position = other.position;
+    this->position = other.position;
 }
 
 Solid::~Solid() {}
 
 void Solid::set_position(std::array<float, 2> new_pos)
 {
-    position = new_pos;
+    this->position = new_pos;
 }
 
 std::array<float, 2> Solid::get_position()
 {
-    return position;
+    return this->position;
 }
 
 void Solid::collided_by(Solid &ball)

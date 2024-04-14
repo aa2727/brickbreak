@@ -70,7 +70,7 @@ void draw()
 
 
 
-int main(int argc, char** argv)
+int old_main(int argc, char** argv)
 {
     Transformer b = Transformer(1, 2);
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
