@@ -30,7 +30,8 @@ void HomeScreen::init()
     }
     this->renderer = std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)>(SDL_CreateRenderer(this->window.get(), -1, 0), SDL_DestroyRenderer);
     SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 0, 255);
-    //this->title = std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)>(IMG_LoadTexture(this->renderer.get(), "../res/title.png"), SDL_DestroyTexture);
+    std::unique_ptr<SDL_Surface,decltype(&SDL_FreeSurface)> surface(IMG_Load("../res/title.png"), SDL_FreeSurface);
+    this->title = std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)>(SDL_CreateTextureFromSurface(this->renderer.get(), surface.get()), SDL_DestroyTexture);
 }
 
 void HomeScreen::handleEvent(const SDL_Event &e)
@@ -44,6 +45,7 @@ void HomeScreen::handleEvent(const SDL_Event &e)
 void HomeScreen::render()
 {
     SDL_RenderClear(this->renderer.get());
+    SDL_RenderCopy(this->renderer.get(), this->title.get(), NULL, NULL);
     SDL_RenderPresent(this->renderer.get());
 }
 
