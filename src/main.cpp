@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include "model/bonus/Transformer.h"
+#include "view/HomeScreen.h"
 
 #include <iostream>
 
@@ -72,6 +73,8 @@ void draw()
 
 int main(int argc, char** argv)
 {
+    //HomeScreen homeScreen;
+/*
     Transformer b = Transformer(1, 2);
     if (SDL_Init(SDL_INIT_VIDEO) != 0 )
     {
@@ -111,7 +114,7 @@ int main(int argc, char** argv)
 		SDL_UpdateWindowSurface(pWindow); 
         // LIMITE A 60 FPS
 		SDL_Delay(16); // utiliser SDL_GetTicks64() pour plus de precisions
-	}
+	} */
     SDL_Quit(); // ON SORT
     return 0;
 }
