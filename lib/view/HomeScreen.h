@@ -17,6 +17,7 @@ public:
     void render();
     void handleEvent(const SDL_Event &e);
     void update();
+    void run();
     bool isRunning();
     void setRunning(bool running);
     void setRenderer(const SDL_Renderer &renderer);
