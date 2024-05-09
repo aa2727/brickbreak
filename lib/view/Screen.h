@@ -19,11 +19,11 @@ public:
     virtual void handleEvent(const SDL_Event &e);
     virtual void update();
     virtual void setRenderer(const SDL_Renderer &renderer);
-    virtual void setWindow(const SDL_Window &window);
+    virtual void setWindow(std::shared_ptr<SDL_Window> window);
     virtual void setFont(TTF_Font &font);
 
 protected:
-    std::unique_ptr<SDL_Window,decltype(&SDL_DestroyWindow)> window;
+    std::shared_ptr<SDL_Window> window;
     std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> renderer;
     std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)> background;
 

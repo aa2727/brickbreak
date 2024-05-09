@@ -1,13 +1,9 @@
 #include "view/MainWindow.h"
+#include "view/HomeScreen.h"
 
 MainWindow::MainWindow() : running(false),
                            window(nullptr, SDL_DestroyWindow),
-                           screen(nullptr),
-                           renderer(nullptr, SDL_DestroyRenderer),
-                           background(nullptr, SDL_DestroyTexture),
-                           title(nullptr, SDL_DestroyTexture),
-                           playButton(nullptr, SDL_DestroyTexture),
-                           quitButton(nullptr, SDL_DestroyTexture)
+                           screen(nullptr)
 {
     this->init();
 }
@@ -19,15 +15,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::init()
 {
-    running = true;
-    this->screen = std::make_unique<Screen>();
-    // Definition of rect
-    this->titleRectSrc = {0, 0, 0, 0};
-    this->titleRectDest = {0, 0, 0, 0};
-    this->playButtonRectSrc = {0, 0, 0, 0};
-    this->playButtonRectDest = {0, 0, 0, 0};
-    this->quitButtonRectDest = {0, 0, 0, 0};
-    this->quitButtonRectSrc = {0, 0, 0, 0};
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         std::cerr << "Echec de l'initialisation de la SDL " << SDL_GetError() << std::endl;
@@ -38,19 +25,9 @@ void MainWindow::init()
     {
         std::cout << "Window created" << std::endl;
     }
-    this->renderer = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>(SDL_CreateRenderer(this->window.get(), -1, 0), SDL_DestroyRenderer);
-    SDL_SetRenderDrawColor(this->renderer.get(), 150, 150, 150, 255);
-    // Load title
-    std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surface(IMG_Load("../res/title.png"), SDL_FreeSurface);
-    this->title = std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)>(SDL_CreateTextureFromSurface(this->renderer.get(), surface.get()), SDL_DestroyTexture);
-
-    // Load play button
-    std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surfacePlay(IMG_Load("../res/play.png"), SDL_FreeSurface);
-    this->playButton = std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)>(SDL_CreateTextureFromSurface(this->renderer.get(), surfacePlay.get()), SDL_DestroyTexture);
-    // Load quit button
-    std::unique_ptr<SDL_Surface, decltype(&SDL_FreeSurface)> surfaceQuit(IMG_Load("../res/quit.png"), SDL_FreeSurface);
-    this->quitButton = std::unique_ptr<SDL_Texture, decltype(&SDL_DestroyTexture)>(SDL_CreateTextureFromSurface(this->renderer.get(), surfaceQuit.get()), SDL_DestroyTexture);
-    }
+    this->setScreen();
+    running = true;
+}
 
 void MainWindow::handleEvent(const SDL_Event &e)
 {
@@ -62,28 +39,12 @@ void MainWindow::handleEvent(const SDL_Event &e)
 
 void MainWindow::render()
 {
-    SDL_RenderClear(this->renderer.get());
-    SDL_RenderCopy(this->renderer.get(), this->title.get(), NULL, &this->titleRectDest);
-    SDL_RenderCopy(this->renderer.get(), this->playButton.get(), NULL, &this->playButtonRectDest);
-    SDL_RenderCopy(this->renderer.get(), this->quitButton.get(), NULL, &this->quitButtonRectDest);
-    SDL_RenderPresent(this->renderer.get());
+    this->screen->render();
 }
 
 void MainWindow::update()
 {
-    this->titleRectDest.x = 115;
-    this->titleRectDest.h = 450;
-    this->titleRectDest.w = 500;
-
-    this->quitButtonRectDest.x = 40;
-    this->quitButtonRectDest.y = 550;
-    this->quitButtonRectDest.h = 225;
-    this->quitButtonRectDest.w = 250;
-
-    this->playButtonRectDest.x = 425;
-    this->playButtonRectDest.y = 550;
-    this->playButtonRectDest.h = 225;
-    this->playButtonRectDest.w = 250;
+    this->screen->update();
 }
 
 void MainWindow::run()
@@ -98,4 +59,17 @@ void MainWindow::run()
         this->update();
         this->render();
     }
+}
+
+void MainWindow::setScreen(std::unique_ptr<Screen> screen)
+{
+    this->screen = std::move(screen);
+    this->screen->setWindow(this->window);
+    this->screen->init();
+}
+
+void MainWindow::setScreen()
+{
+    this->screen = std::make_unique<HomeScreen>();
+    this->setScreen(std::move(this->screen));
 }

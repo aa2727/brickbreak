@@ -4,7 +4,7 @@ HomeScreen::HomeScreen() : title(nullptr, SDL_DestroyTexture),
                            playButton(nullptr, SDL_DestroyTexture),
                            quitButton(nullptr, SDL_DestroyTexture)
 {
-    this->init();
+    // nothing to do
 }
 
 HomeScreen::~HomeScreen()
@@ -14,23 +14,13 @@ HomeScreen::~HomeScreen()
 
 void HomeScreen::init()
 {
-    // Definition of rect
+    std::cout << "HomeScreen init" << std::endl;
     this->titleRectSrc = {0, 0, 0, 0};
     this->titleRectDest = {0, 0, 0, 0};
     this->playButtonRectSrc = {0, 0, 0, 0};
     this->playButtonRectDest = {0, 0, 0, 0};
     this->quitButtonRectDest = {0, 0, 0, 0};
     this->quitButtonRectSrc = {0, 0, 0, 0};
-    if (SDL_Init(SDL_INIT_VIDEO) != 0)
-    {
-        std::cerr << "Echec de l'initialisation de la SDL " << SDL_GetError() << std::endl;
-        exit(1);
-    }
-    this->window = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>(SDL_CreateWindow("Test", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 700, 900, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
-    if (this->window)
-    {
-        std::cout << "Window created" << std::endl;
-    }
     this->renderer = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>(SDL_CreateRenderer(this->window.get(), -1, 0), SDL_DestroyRenderer);
     SDL_SetRenderDrawColor(this->renderer.get(), 150, 150, 150, 255);
     // Load title

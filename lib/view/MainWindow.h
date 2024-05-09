@@ -21,25 +21,18 @@ public:
     void update();
     void run();
     bool isRunning();
+    void setScreen(std::unique_ptr<Screen> screen);
+    void setScreen();
     void setRunning(bool running);
     void setRenderer(const SDL_Renderer &renderer);
     void setWindow(const SDL_Window &window);
+    void getWindow();
     void setFont(TTF_Font &font);
 
 private:
     bool running;
-    std::unique_ptr<SDL_Window,decltype(&SDL_DestroyWindow)> window;
+    std::shared_ptr<SDL_Window> window;
     std::unique_ptr<Screen> screen;
-    std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> renderer;
-    std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)> background;
-
-    std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)> title;
-    SDL_Rect titleRectSrc, titleRectDest;
-    std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)> playButton;
-    SDL_Rect playButtonRectSrc, playButtonRectDest;
-    std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)> quitButton;
-    SDL_Rect quitButtonRectSrc,quitButtonRectDest;
-
 };
 
 #endif // MAIN_WINDOW_H

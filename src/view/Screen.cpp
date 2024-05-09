@@ -37,9 +37,9 @@ void Screen::setRenderer(const SDL_Renderer &renderer)
     std::cout << "Screen setRenderer" << std::endl;
 }
 
-void Screen::setWindow(const SDL_Window &window)
+void Screen::setWindow(std::shared_ptr<SDL_Window> window)
 {
-    std::cout << "Screen setWindow" << std::endl;
+    this->window = window;
 }
 
 void Screen::setFont(TTF_Font &font)
