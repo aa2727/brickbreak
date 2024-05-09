@@ -1,7 +1,6 @@
 #include "view/Screen.h"
 
-Screen::Screen(): window(nullptr, SDL_DestroyWindow), 
-                  renderer(nullptr, SDL_DestroyRenderer),
+Screen::Screen(): renderer(nullptr, SDL_DestroyRenderer),
                   background(nullptr, SDL_DestroyTexture)
 {
     this->init();

@@ -3,7 +3,6 @@
 #include "view/GameScreen.h"
 
 MainWindow::MainWindow() : running(false),
-                           window(nullptr, SDL_DestroyWindow),
                            screen(nullptr)
 {
     this->init();
@@ -76,5 +75,11 @@ void MainWindow::setScreen(std::unique_ptr<Screen> screen)
 void MainWindow::setScreen()
 {
     this->screen = std::make_unique<GameScreen>();
+    this->setScreen(std::move(this->screen));
+}
+
+void MainWindow::changeTo(std::unique_ptr<Window> window)
+{
+    this->screen = std::move(std::unique_ptr<Screen>(dynamic_cast<Screen *>(window.get())));
     this->setScreen(std::move(this->screen));
 }

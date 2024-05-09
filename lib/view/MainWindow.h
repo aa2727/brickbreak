@@ -2,15 +2,14 @@
 #define MAIN_WINDOW_H
 
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_ttf.h>
-#include <SDL2/SDL_image.h>
 #include "view/Screen.h"
+#include "view/Window.h"
 #include <memory>
 #include <array>
 #include <string>
 #include <iostream>
 
-class MainWindow
+class MainWindow : public Window
 {
 public:
     MainWindow();
@@ -28,10 +27,10 @@ public:
     void setWindow(const SDL_Window &window);
     void getWindow();
     void setFont(TTF_Font &font);
+    void changeTo(std::unique_ptr<Window> window) override;
 
 private:
     bool running;
-    std::shared_ptr<SDL_Window> window;
     std::unique_ptr<Screen> screen;
 };
 

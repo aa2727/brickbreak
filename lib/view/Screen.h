@@ -4,12 +4,13 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
 #include <SDL2/SDL_image.h>
+#include "view/Window.h"
 #include <memory>
 #include <array>
 #include <string>
 #include <iostream>
 
-class Screen
+class Screen : public Window
 {
 public:
     Screen();
@@ -23,7 +24,6 @@ public:
     virtual void setFont(TTF_Font &font);
 
 protected:
-    std::shared_ptr<SDL_Window> window;
     std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> renderer;
     std::unique_ptr<SDL_Texture,decltype(&SDL_DestroyTexture)> background;
 
