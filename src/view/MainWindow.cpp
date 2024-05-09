@@ -1,5 +1,6 @@
 #include "view/MainWindow.h"
 #include "view/HomeScreen.h"
+#include "view/GameScreen.h"
 
 MainWindow::MainWindow() : running(false),
                            window(nullptr, SDL_DestroyWindow),
@@ -34,6 +35,10 @@ void MainWindow::handleEvent(const SDL_Event &e)
     if (e.type == SDL_QUIT)
     {
         this->running = false;
+    }
+    else
+    {
+        this->screen->handleEvent(e);
     }
 }
 
@@ -70,6 +75,6 @@ void MainWindow::setScreen(std::unique_ptr<Screen> screen)
 
 void MainWindow::setScreen()
 {
-    this->screen = std::make_unique<HomeScreen>();
+    this->screen = std::make_unique<GameScreen>();
     this->setScreen(std::move(this->screen));
 }
