@@ -1,10 +1,6 @@
 #include "view/HomeScreen.h"
 
-HomeScreen::HomeScreen() : running(false),
-                           window(nullptr, SDL_DestroyWindow),
-                           renderer(nullptr, SDL_DestroyRenderer),
-                           background(nullptr, SDL_DestroyTexture),
-                           title(nullptr, SDL_DestroyTexture),
+HomeScreen::HomeScreen() : title(nullptr, SDL_DestroyTexture),
                            playButton(nullptr, SDL_DestroyTexture),
                            quitButton(nullptr, SDL_DestroyTexture)
 {
@@ -18,7 +14,6 @@ HomeScreen::~HomeScreen()
 
 void HomeScreen::init()
 {
-    running = true;
     // Definition of rect
     this->titleRectSrc = {0, 0, 0, 0};
     this->titleRectDest = {0, 0, 0, 0};
@@ -52,10 +47,7 @@ void HomeScreen::init()
 
 void HomeScreen::handleEvent(const SDL_Event &e)
 {
-    if (e.type == SDL_QUIT)
-    {
-        this->running = false;
-    }
+   // TODO
 }
 
 void HomeScreen::render()
@@ -82,18 +74,4 @@ void HomeScreen::update()
     this->playButtonRectDest.y = 550;
     this->playButtonRectDest.h = 225;
     this->playButtonRectDest.w = 250;
-}
-
-void HomeScreen::run()
-{
-    while (this->running)
-    {
-        SDL_Event e;
-        while (SDL_PollEvent(&e))
-        {
-            this->handleEvent(e);
-        }
-        this->update();
-        this->render();
-    }
 }
