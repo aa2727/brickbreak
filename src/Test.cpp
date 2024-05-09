@@ -6,7 +6,7 @@
 #define LEFT -1
 #define RIGHT 1
 
-int main()
+int old_main()
 {
 
     Platform *plat = new Platform({0, 0}, 10);
