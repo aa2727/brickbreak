@@ -12,7 +12,12 @@ GameScreen::~GameScreen()
 
 void GameScreen::init()
 {
-    std::cout << "GameScreen init" << std::endl;
+    this->renderer = std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)>(SDL_CreateRenderer(this->window.get(), -1, 0), SDL_DestroyRenderer);
+    if (this->renderer == nullptr)
+    {
+        std::cerr << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
+        exit(1);
+    }
     this->plat = std::make_shared<Platform>();
     // nothing to do
 }
@@ -40,6 +45,8 @@ void GameScreen::handleEvent(const SDL_Event &e)
 void GameScreen::render()
 {
     SDL_RenderClear(this->renderer.get());
+    SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 0, 255);
+    SDL_RenderPresent(this->renderer.get());
 }
 
 void GameScreen::update()

@@ -1,4 +1,5 @@
 #include "view/HomeScreen.h"
+#include "view/GameScreen.h"
 
 HomeScreen::HomeScreen() : title(nullptr, SDL_DestroyTexture),
                            playButton(nullptr, SDL_DestroyTexture),
@@ -14,7 +15,6 @@ HomeScreen::~HomeScreen()
 
 void HomeScreen::init()
 {
-    std::cout << "HomeScreen init" << std::endl;
     this->titleRectSrc = {0, 0, 0, 0};
     this->titleRectDest = {0, 0, 0, 0};
     this->playButtonRectSrc = {0, 0, 0, 0};
@@ -37,7 +37,20 @@ void HomeScreen::init()
 
 void HomeScreen::handleEvent(const SDL_Event &e)
 {
-   // TODO
+    if (e.type == SDL_MOUSEBUTTONDOWN)
+    {
+        int x, y;
+        SDL_GetMouseState(&x, &y);
+        if (x >= 40 && x <= 290 && y >= 550 && y <= 775)
+        {
+            this->parent->changeTo(nullptr);
+        }
+        else if (x >= 425 && x <= 675 && y >= 550 && y <= 775)
+        {
+            this->parent->changeTo(std::make_unique<GameScreen>());
+        }
+    }
+        
 }
 
 void HomeScreen::render()

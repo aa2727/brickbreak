@@ -31,7 +31,9 @@ public:
 
 private:
     bool running;
+    bool has_to_change;
     std::unique_ptr<Screen> screen;
+    std::unique_ptr<Screen> next_screen;
 };
 
 #endif // MAIN_WINDOW_H

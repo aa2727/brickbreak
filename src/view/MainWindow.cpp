@@ -3,7 +3,10 @@
 #include "view/GameScreen.h"
 
 MainWindow::MainWindow() : running(false),
-                           screen(nullptr)
+                           has_to_change(false),
+                           screen(nullptr),
+                           next_screen(nullptr)
+
 {
     this->init();
 }
@@ -55,6 +58,15 @@ void MainWindow::run()
 {
     while (this->running)
     {
+        if (this->has_to_change)
+        {
+
+            this->screen->destroyRenderer();
+            this->screen.release();
+            this->screen = std::move(this->next_screen);
+            this->setScreen(std::move(this->screen));
+            this->has_to_change = false;
+        }
         SDL_Event e;
         while (SDL_PollEvent(&e))
         {
@@ -69,17 +81,22 @@ void MainWindow::setScreen(std::unique_ptr<Screen> screen)
 {
     this->screen = std::move(screen);
     this->screen->setWindow(this->window);
+    this->screen->setParent(std::shared_ptr<Window>(this));
     this->screen->init();
 }
 
 void MainWindow::setScreen()
 {
-    this->screen = std::make_unique<GameScreen>();
+    this->screen = std::make_unique<HomeScreen>();
     this->setScreen(std::move(this->screen));
 }
 
 void MainWindow::changeTo(std::unique_ptr<Window> window)
 {
-    this->screen = std::move(std::unique_ptr<Screen>(dynamic_cast<Screen *>(window.get())));
-    this->setScreen(std::move(this->screen));
+    if (window == nullptr)
+    {
+        this->running = false;
+    }
+    this->next_screen = std::move(std::unique_ptr<Screen>(dynamic_cast<Screen *>(window.release())));
+    this->has_to_change = true;
 }
