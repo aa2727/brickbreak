@@ -44,16 +44,28 @@ void MainWindow::handleEvent(const SDL_Event &e)
     }
 }
 
+/**
+ * @brief Update the screen view
+ * 
+ */
 void MainWindow::render()
 {
     this->screen->render();
 }
 
+/**
+ * @brief Update the screen model
+ * 
+ */
 void MainWindow::update()
 {
     this->screen->update();
 }
 
+/**
+ * @brief Main loop of the window
+ * 
+ */
 void MainWindow::run()
 {
     while (this->running)
@@ -77,20 +89,35 @@ void MainWindow::run()
     }
 }
 
+/**
+ * @brief Change the current screen of the window
+ * 
+ * @param screen 
+ */
 void MainWindow::setScreen(std::unique_ptr<Screen> screen)
 {
-    this->screen = std::move(screen);
-    this->screen->setWindow(this->window);
-    this->screen->setParent(std::shared_ptr<Window>(this));
-    this->screen->init();
+    this->screen = std::move(screen); // Set the screen to the new screen
+    this->screen->setWindow(this->window); // if we have time we can delete
+    this->screen->setParent(std::shared_ptr<Window>(this)); // Set the parent of the screen to this window
+    this->screen->init(); // Initialize the screen renderer
 }
 
+/**
+ * @brief Change the current screen of the window to the home screen
+ * 
+ */
 void MainWindow::setScreen()
 {
     this->screen = std::make_unique<HomeScreen>();
-    this->setScreen(std::move(this->screen));
+    this->setScreen(std::move(this->screen)); // Call the setScreen method with the new screen
 }
 
+/**
+ * @brief Prepare the screen to be changed to the next screen window in parameter
+ * 
+ * @param window 
+ * @require window instanceof Screen
+ */
 void MainWindow::changeTo(std::unique_ptr<Window> window)
 {
     if (window == nullptr)
