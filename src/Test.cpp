@@ -2,9 +2,7 @@
 #include <SDL2/SDL.h>
 
 #include "model/items/platform/Platform.h"
-
-#define LEFT -1
-#define RIGHT 1
+#include "model/items/Solid.h"
 
 int main()
 {

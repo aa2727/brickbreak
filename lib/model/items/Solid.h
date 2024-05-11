@@ -1,6 +1,9 @@
 #ifndef SOLID_H
 #define SOLID_H
 
+#define LEFT 1
+#define RIGHT 2
+
 #include <iostream>
 #include <array>
 

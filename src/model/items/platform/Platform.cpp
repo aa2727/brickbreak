@@ -40,11 +40,11 @@ void Platform::movement(int direction)
 {
     switch (direction)
     {
-    case -1: // LEFT
+    case LEFT:
         std::cerr << "LEFT !" << std::endl;
         break;
 
-    case 1: // RIGHT
+    case RIGHT:
         std::cerr << "RIGHT !" << std::endl;
         break;
     
