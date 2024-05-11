@@ -6,7 +6,6 @@
 class TransformerPlateform : public Transformer
 {
 public:
-
     enum class Type : int
     {
         BIG = 0,
@@ -16,7 +15,7 @@ public:
     TransformerPlateform(int posX, int posY);
     TransformerPlateform(const std::array<int, 2> &pos);
     TransformerPlateform(const TransformerPlateform &b); // copy constructor
-    TransformerPlateform(const Transformer &b); // copy constructor
+    TransformerPlateform(const Transformer &b);          // copy constructor
     ~TransformerPlateform();
 };
 

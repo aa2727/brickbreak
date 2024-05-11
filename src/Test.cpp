@@ -4,7 +4,7 @@
 #include "model/items/platform/Platform.h"
 #include "model/items/Solid.h"
 
-int main()
+int old_main()
 {
 
     Platform *plat = new Platform({0, 0}, 10);
