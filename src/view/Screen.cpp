@@ -1,7 +1,6 @@
 #include "view/Screen.h"
 
-Screen::Screen(): window(nullptr, SDL_DestroyWindow), 
-                  renderer(nullptr, SDL_DestroyRenderer),
+Screen::Screen(): renderer(nullptr, SDL_DestroyRenderer),
                   background(nullptr, SDL_DestroyTexture)
 {
     this->init();
@@ -37,9 +36,19 @@ void Screen::setRenderer(const SDL_Renderer &renderer)
     std::cout << "Screen setRenderer" << std::endl;
 }
 
+void Screen::destroyRenderer()
+{
+    SDL_DestroyRenderer(this->renderer.get());
+}
+
 void Screen::setWindow(std::shared_ptr<SDL_Window> window)
 {
     this->window = window;
+}
+
+void Screen::setParent(std::shared_ptr<Window> parent)
+{
+    this->parent = parent;
 }
 
 void Screen::setFont(TTF_Font &font)
