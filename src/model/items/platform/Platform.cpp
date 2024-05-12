@@ -21,6 +21,26 @@ std::array<float, 2> Platform::get_direction()
     return this->direction;
 }
 
+Platform::Platform(float dir_x, float dir_y, int size)
+{
+    this->direction = {dir_x, dir_y};
+    this->size = size;
+}
+
+Platform::Platform(std::array<float, 2> direction, std::array<float, 2> position, int size)
+{
+    this->direction = direction;
+    this->position = position;
+    this->size = size;
+}
+
+Platform::Platform(float dir_x, float dir_y, float pos_x, float pos_y, int size)
+{
+    this->direction = {dir_x, dir_y};
+    this->position = {pos_x, pos_y};
+    this->size = size;
+}
+
 int Platform::get_size()
 {
     return this->size;
@@ -36,16 +56,23 @@ void Platform::set_size(int new_size)
     this->size = new_size;
 }
 
+void Platform::set_x_position(float x)
+{
+    this->direction.at(0) = x;
+}
+
 void Platform::movement(int direction)
 {
     switch (direction)
     {
     case -1: // LEFT
         std::cerr << "LEFT !" << std::endl;
+        this->position.at(0) -= this->direction.at(0);
         break;
 
     case 1: // RIGHT
         std::cerr << "RIGHT !" << std::endl;
+        this->position.at(0) += this->direction.at(0);
         break;
     
     default:

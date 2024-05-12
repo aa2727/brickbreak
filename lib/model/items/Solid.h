@@ -7,7 +7,7 @@
 class Solid
 {
     // data members
-private:
+protected:
     std::array<float, 2> position;
 
     // Constructors and destructors
