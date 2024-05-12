@@ -19,6 +19,16 @@ int Brick::get_hp()
     return this->hp;
 }
 
+int Brick::get_col()
+{
+    return this->col;
+}
+
+int Brick::get_row()
+{
+    return this->row;
+}
+
 void Brick::set_hp(int new_hp)
 {
     this->hp = new_hp;
