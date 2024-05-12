@@ -61,8 +61,8 @@ void GameScreen::render()
 
 void GameScreen::drawPlatform()
 {
-    
-    SDL_Rect rect = {plat.get()->get_position().at(0), plat.get()->get_position().at(1),200 *plat.get()->get_size() , 40};
+    // cast float to int
+    SDL_Rect rect = {static_cast<int>(plat.get()->get_position().at(0)), static_cast<int>(plat.get()->get_position().at(1)),200 *plat.get()->get_size() , 40};
     SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 0, 255);
     SDL_RenderFillRect(this->renderer.get(), &rect);
 }
