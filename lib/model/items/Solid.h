@@ -6,11 +6,12 @@
 
 #include <iostream>
 #include <array>
+#include <cstring>
 
 class Solid
 {
     // data members
-private:
+protected:
     std::array<float, 2> position;
 
     // Constructors and destructors
@@ -29,11 +30,13 @@ public:
 public:
     void set_position(std::array<float, 2> new_pos);
 
-    std::array<float, 2> get_position();
+    std::array<float, 2> get_position() const;
 
     // tools
 public:
     void collided_by(Solid &ball);
+
+    bool operator<(const Solid &other) const;
 };
 
 #endif // SOLID_H

@@ -19,6 +19,8 @@ public:
 
     Ball(float dir_x, float dir_y);
 
+    Ball(float pos_x, float pos_y, float dir_x, float dir_y);
+
     Ball(const Ball &other);
 
     ~Ball();
