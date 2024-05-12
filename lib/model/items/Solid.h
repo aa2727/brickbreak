@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <array>
+#include <cstring>
 
 class Solid
 {
@@ -26,11 +27,13 @@ public:
 public:
     void set_position(std::array<float, 2> new_pos);
 
-    std::array<float, 2> get_position();
+    std::array<float, 2> get_position() const;
 
     // tools
 public:
     void collided_by(Solid &ball);
+
+    bool operator<(const Solid &other) const;
 };
 
 #endif // SOLID_H

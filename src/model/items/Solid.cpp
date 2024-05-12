@@ -26,11 +26,16 @@ void Solid::set_position(std::array<float, 2> new_pos)
     this->position = new_pos;
 }
 
-std::array<float, 2> Solid::get_position()
+std::array<float, 2> Solid::get_position() const
 {
     return this->position;
 }
 
 void Solid::collided_by(Solid &ball)
 {
+}
+
+bool Solid::operator<(const Solid &other) const
+{
+    return std::strcmp(typeid(this).name(), typeid(&other).name()) < 0;
 }

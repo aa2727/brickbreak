@@ -9,7 +9,7 @@
 #include <SDL2/SDL_image.h>
 #include <memory>
 #include <array>
-#include <set>
+#include <vector>
 #include <string>
 #include <iostream>
 
@@ -34,7 +34,7 @@ public:
 
 private:
     std::shared_ptr<Platform> plat;
-    std::unique_ptr<std::set<Ball>> balls;
+    std::unique_ptr<std::vector<Ball>> balls;
 };
 
 #endif // GAME_SCREEN_H

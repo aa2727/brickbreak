@@ -1,4 +1,5 @@
 #include "view/GameScreen.h"
+#include "view/itemView/BallView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
                            balls(nullptr)
@@ -19,7 +20,14 @@ void GameScreen::init()
         std::cerr << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
         exit(1);
     }
+
+    // A supprimer apres creation  de la classe game model
     this->plat = std::make_shared<Platform>(2.0,0.0,PLATFORM_POS_X,PLATFORM_POS_Y,1);
+    this->balls = std::make_unique<std::vector<Ball>>();
+    this->balls->push_back(Ball(1.0, 1.0, 10.0, 10.0));
+    this->balls->push_back(Ball(1.0, 31.0,10.0,0.0));
+    
+    
 }
 
 void GameScreen::handleEvent(const SDL_Event &e)
@@ -47,6 +55,7 @@ void GameScreen::render()
     SDL_SetRenderDrawColor(this->renderer.get(), 133, 133, 133, 255);
     SDL_RenderClear(this->renderer.get());
     this->drawPlatform();
+    this->drawBalls();
     SDL_RenderPresent(this->renderer.get());
 }
 
@@ -58,7 +67,21 @@ void GameScreen::drawPlatform()
     SDL_RenderFillRect(this->renderer.get(), &rect);
 }
 
+void GameScreen::drawBalls()
+{
+    // use iterator to draw all balls
+    for (auto it = balls->begin(); it != balls->end(); ++it)
+    {
+        SDL_SetRenderDrawColor(this->renderer.get(), 255, 0, 0, 255);
+        drawBall(this->renderer,it->get_position().at(0), it->get_position().at(1));
+    }
+}
+
 void GameScreen::update()
 {
-    // nothing to do
+    for (auto it = balls->begin(); it != balls->end(); ++it)
+    {
+        it->move(0.01);
+        //std::cout << "Ball position: " << it->get_position().at(0) << " " << it->get_position().at(1) << std::endl;
+    }
 }
