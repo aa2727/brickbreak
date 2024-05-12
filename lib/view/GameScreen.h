@@ -34,7 +34,7 @@ public:
 
 private:
     std::shared_ptr<Platform> plat;
-    std::unique_ptr<std::vector<Ball>> balls;
+    std::unique_ptr<std::vector<std::unique_ptr<Ball>>> balls;
 };
 
 #endif // GAME_SCREEN_H

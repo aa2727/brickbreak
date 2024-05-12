@@ -23,9 +23,9 @@ void GameScreen::init()
 
     // A supprimer apres creation  de la classe game model
     this->plat = std::make_shared<Platform>(2.0,0.0,PLATFORM_POS_X,PLATFORM_POS_Y,1);
-    this->balls = std::make_unique<std::vector<Ball>>();
-    this->balls->push_back(Ball(1.0, 1.0, 10.0, 10.0));
-    this->balls->push_back(Ball(1.0, 31.0,10.0,0.0));
+    this->balls = std::make_unique<std::vector<std::unique_ptr<Ball>>>();
+    this->balls->push_back(std::make_unique<Ball>(31.0, 31.0,5.0,1.0));
+    this->balls->push_back(std::make_unique<Ball>(31.0, 31.0,1.0,1.0));
     
     
 }
@@ -73,7 +73,7 @@ void GameScreen::drawBalls()
     for (auto it = balls->begin(); it != balls->end(); ++it)
     {
         SDL_SetRenderDrawColor(this->renderer.get(), 255, 0, 0, 255);
-        drawBall(this->renderer,it->get_position().at(0), it->get_position().at(1));
+        drawBall(this->renderer,it->get()->get_position().at(0), it->get()->get_position().at(1));
     }
 }
 
@@ -81,7 +81,6 @@ void GameScreen::update()
 {
     for (auto it = balls->begin(); it != balls->end(); ++it)
     {
-        it->move(0.01);
-        //std::cout << "Ball position: " << it->get_position().at(0) << " " << it->get_position().at(1) << std::endl;
+        it->get()->move(0.10);
     }
 }

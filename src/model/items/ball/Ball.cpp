@@ -12,11 +12,10 @@ Ball::Ball(float dir_x, float dir_y)
     this->direction = {dir_x, dir_y};
 }
 
-Ball::Ball(float dir_x, float dir_y, float pos_x, float pos_y)
+Ball::Ball(float pos_x, float pos_y, float dir_x, float dir_y)
 {
     this->direction = {dir_x, dir_y};
     this->set_position({pos_x, pos_y});
-    std::cout << "Ball created at " << pos_x << ", " << pos_y << std::endl;
 }
 
 Ball::Ball(const Ball &other)
@@ -24,7 +23,10 @@ Ball::Ball(const Ball &other)
     this->direction = other.direction;
 }
 
-Ball::~Ball() {}
+Ball::~Ball() 
+{
+    std::cout << "Ball destroyed" << "position: " << get_position()[0] << ", " << get_position()[1] << std::endl;
+}
 
 std::array<float, 2> Ball::get_direction()
 {
@@ -41,7 +43,6 @@ void Ball::move(float speed)
     std::array<float, 2> new_pos;
     for (int i = 0; i < new_pos.size(); i++)
         new_pos[i] = get_position()[i] + speed * get_direction()[i];
-
     set_position(new_pos);
 }
 
