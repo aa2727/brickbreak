@@ -61,17 +61,20 @@ void Platform::set_x_position(float x)
     this->direction.at(0) = x;
 }
 
+int Platform::get_height()
+{
+    return this->height;
+}
+
 void Platform::movement(int direction)
 {
     switch (direction)
     {
     case LEFT:
-        std::cerr << "LEFT !" << std::endl;
         this->position.at(0) -= this->direction.at(0);
         break;
 
     case RIGHT:
-        std::cerr << "RIGHT !" << std::endl;
         this->position.at(0) += this->direction.at(0);
         break;
     

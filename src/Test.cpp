@@ -52,7 +52,6 @@ int old_main()
                 case SDLK_RIGHT:
                     plat->movement(RIGHT);
                     break;
-                    // Add cases for other keys if needed
                 }
             }
         }

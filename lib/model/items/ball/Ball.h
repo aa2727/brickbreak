@@ -10,6 +10,7 @@ class Ball : public Solid
     // data members
 private:
     std::array<float, 2> direction;
+    unsigned int radius = 10;
 
     // constructors and destructors
 public:
@@ -36,6 +37,10 @@ public:
     void move(float speed);
 
     void tick_time();
+
+    bool collided_by(Solid &s) override;
+
+    void resolve_collision(Solid &s);
 };
 
 #endif // BALL_H

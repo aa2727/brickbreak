@@ -34,7 +34,7 @@ public:
 
     // tools
 public:
-    void collided_by(Solid &ball);
+    virtual bool collided_by(Solid &ball);
 
     bool operator<(const Solid &other) const;
 };

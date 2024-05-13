@@ -10,7 +10,8 @@ class Platform : public Solid
     // data members
 private:
     std::array<float, 2> direction;
-    int size;
+    int size; // taille globale
+    int height = 2;
 
     // constructors and destructors
 public:
@@ -35,6 +36,8 @@ public:
     int get_size();
 
     void set_direction(std::array<float, 2> new_dir);
+
+    int get_height();
 
     void set_size(int new_size);
 

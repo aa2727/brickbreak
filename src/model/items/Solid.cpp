@@ -31,7 +31,7 @@ std::array<float, 2> Solid::get_position() const
     return this->position;
 }
 
-void Solid::collided_by(Solid &ball)
+bool Solid::collided_by(Solid &ball)
 {
 }
 
