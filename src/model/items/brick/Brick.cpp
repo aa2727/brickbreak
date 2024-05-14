@@ -23,7 +23,10 @@ Brick::Brick(const Brick &other)
     this->side = other.side;
 }
 
-Brick::~Brick() {}
+Brick::~Brick() 
+{
+    std::cout << "Brick destroyed" << std::endl;
+}
 
 int Brick::get_hp()
 {
@@ -35,7 +38,7 @@ void Brick::set_hp(int new_hp)
     this->hp = new_hp;
 }
 
-int Brick::get_side()
+int Brick::get_side() const
 {
     return this->side;
 }

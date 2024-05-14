@@ -33,6 +33,7 @@ std::array<float, 2> Solid::get_position() const
 
 bool Solid::collided_by(Solid &ball)
 {
+    return false;
 }
 
 bool Solid::operator<(const Solid &other) const
