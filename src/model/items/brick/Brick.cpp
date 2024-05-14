@@ -13,6 +13,7 @@ Brick::Brick(int hp, float pos_x, float pos_y, int side)
 {
     this->hp = hp;
     this->position = {pos_x, pos_y};
+    std::cout << "Brick created" << "pos_x" << pos_x << "pos_y" << pos_y << std::endl;
     this->side = side;
 }
 

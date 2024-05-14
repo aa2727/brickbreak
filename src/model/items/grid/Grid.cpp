@@ -6,17 +6,21 @@ Grid::Grid() : grid(nullptr)
     this->init_grid();
 }
 
-Grid::Grid(std::array<float, 2> position, int width, int height, int nb_lines, int nb_columns) : Solid(position)
+Grid::Grid(std::array<float, 2> position, const int width, const int height, const int nb_lines, const int nb_columns) : Solid(position)
 {
     this->nb_lines = nb_lines;
     this->nb_columns = nb_columns;
+    this->brick_width = width;
+    this->brick_height = height;
     this->init_grid();
 }
 
-Grid::Grid(float pos_x, float pos_y, int width, int height, int nb_lines, int nb_columns) : Solid(pos_x, pos_y)
+Grid::Grid(const float pos_x, const float pos_y, const int width, const int height, const int nb_lines, const int nb_columns) : Solid(pos_x, pos_y)
 {
     this->nb_lines = nb_lines;
     this->nb_columns = nb_columns;
+    this->brick_width = width/nb_columns;
+    this->brick_height = height/nb_lines;
     this->init_grid();
 }
 
@@ -27,13 +31,12 @@ Grid::~Grid()
 
 void Grid::init_grid()
 {
-    std::cout << "init grid" << "size: " << this->nb_lines*this->nb_columns << std::endl; // "size: 25
     this->grid = std::make_unique<std::vector<std::shared_ptr<Brick>>>(this->nb_lines*this->nb_columns, std::shared_ptr<Brick>());
     for (int i = 0; i < this->nb_lines; i++)
     {
         for (int j = 0; j < this->nb_columns; j++)
         {
-            this->grid->at(i*this->nb_columns + j) = std::make_shared<Brick>(1, j*10, i*10, 10);
+            this->grid->at(i*this->nb_columns + j) = std::make_shared<Brick>(1, j*this->brick_width, i*this->brick_height, 10);
         }
     }
 }

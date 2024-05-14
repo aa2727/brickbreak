@@ -13,6 +13,8 @@ class Grid : public Solid
     private:
     int nb_lines;
     int nb_columns;
+    int brick_width;
+    int brick_height;
     std::unique_ptr<std::vector<std::shared_ptr<Brick>>> grid;
 
     public:
@@ -25,7 +27,7 @@ class Grid : public Solid
     std::vector<std::shared_ptr<Brick>> get_grid() const;
     int get_nb_lines() const;
     int get_nb_columns() const;
-    
+
 
 };
     

@@ -5,8 +5,9 @@ void drawGrid(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)
 {
     float width = static_cast<float>(width_window) / grid.get_nb_columns();
     float height = static_cast<float>(height_window) / grid.get_nb_lines();
+    //std::cout << "width: " << width << " height: " << height << std::endl;
     for (auto &brick : grid.get_grid())
     {
-        drawBrick(renderer, x + brick->get_position()[0], y + brick->get_position()[1],width,height,*brick);
+        drawBrick(renderer, brick->get_position()[0], brick->get_position()[1],width,height,*brick);
     }
 }
