@@ -1,6 +1,6 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
-//#include "view/itemView/BrickView.h"
+// #include "view/itemView/BrickView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
                            balls(),
@@ -24,8 +24,8 @@ void GameScreen::init()
     }
 
     // A supprimer apres creation  de la classe game model
-    this->plat = std::make_shared<Platform>(2.0, 0.0, PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
-    this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
+    this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
+    this->balls.push_back(std::make_unique<Ball>(255., 400., 1., -1.5, 10));
     this->bricks.push_back(std::make_unique<Brick>(1, 255., 30., 50));
     this->bricks.push_back(std::make_unique<Brick>(1, 505., 30., 50));
 }
@@ -34,17 +34,23 @@ void GameScreen::handleEvent(const SDL_Event &e)
 {
     if (e.type == SDL_KEYDOWN)
     {
+        auto [p_x, p_y] = plat->get_position();
         switch (e.key.keysym.sym)
         {
         case SDLK_LEFT:
-            plat->movement(LEFT);
+            plat->set_direction({-(float)(plat->get_speed()), 0});
             break;
 
         case SDLK_RIGHT:
-            plat->movement(RIGHT);
+            plat->set_direction({(float)(plat->get_speed()), 0});
             break;
         }
     }
+    else if (e.type == SDL_KEYUP)
+    {
+        plat->set_direction({0, 0});
+    }
+
     if (e.type == SDL_MOUSEMOTION)
     {
         int mouse_x, mouse_y;
@@ -98,9 +104,11 @@ void GameScreen::drawBricks()
 
 void GameScreen::update()
 {
+    plat->movement();
+
     for (auto it = balls.begin(); it != balls.end(); ++it)
     {
-        it->get()->move(0.1);
+        (*it)->move(1);
         (*it)->resolve_collision(*plat);
         for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
         {

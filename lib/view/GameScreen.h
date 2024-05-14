@@ -18,6 +18,9 @@
 #define PLATFORM_POS_X 255.0
 #define PLATFORM_POS_Y 480.0
 
+#define WINDOW_WIDTH 700
+#define WINDOW_HEIGHT 900
+
 class GameScreen : public Screen
 {
 public:

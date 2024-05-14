@@ -2,9 +2,9 @@
 
 Platform::Platform() {}
 
-Platform::Platform(std::array<float, 2> direction, int size, int thickness)
+Platform::Platform(int size, int thickness)
 {
-    this->direction = direction;
+    this->direction = {0., 0.};
     this->size = size;
     this->thickness = thickness;
 }
@@ -16,24 +16,17 @@ Platform::Platform(const Platform &other)
     this->thickness = other.thickness;
 }
 
-Platform::Platform(float dir_x, float dir_y, int size, int thickness)
+Platform::Platform(std::array<float, 2> position, int size, int thickness)
 {
-    this->direction = {dir_x, dir_y};
-    this->size = size;
-    this->thickness = thickness;
-}
-
-Platform::Platform(std::array<float, 2> direction, std::array<float, 2> position, int size, int thickness)
-{
-    this->direction = direction;
+    this->direction = {0., 0.};
     this->position = position;
     this->size = size;
     this->thickness = thickness;
 }
 
-Platform::Platform(float dir_x, float dir_y, float pos_x, float pos_y, int size, int thickness)
+Platform::Platform(float pos_x, float pos_y, int size, int thickness)
 {
-    this->direction = {dir_x, dir_y};
+    this->direction = {0., 0.};
     this->position = {pos_x, pos_y};
     this->size = size;
     this->thickness = thickness;
@@ -70,19 +63,17 @@ void Platform::set_thickness(int new_thick)
     this->thickness = new_thick;
 }
 
-void Platform::movement(int direction)
+int Platform::get_speed()
 {
-    switch (direction)
-    {
-    case LEFT:
-        this->position.at(0) -= this->direction.at(0);
-        break;
+    return this->speed;
+}
 
-    case RIGHT:
-        this->position.at(0) += this->direction.at(0);
-        break;
+void Platform::set_speed(int new_speed)
+{
+    this->speed = new_speed;
+}
 
-    default:
-        break;
-    }
+void Platform::movement()
+{
+    this->position.at(0) += this->direction.at(0);
 }
