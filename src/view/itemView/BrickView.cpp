@@ -1,6 +1,6 @@
 #include "view/itemView/BrickView.h"
 
-void drawBrick(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y,const float width, const float height, const Brick &brick)
+void drawBrick(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &renderer,const float width, const float height, const Brick &brick)
 {
     SDL_Rect rect;
     rect.x = brick.get_position()[0];

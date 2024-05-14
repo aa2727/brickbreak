@@ -10,8 +10,8 @@ Grid::Grid(std::array<float, 2> position, const int width, const int height, con
 {
     this->nb_lines = nb_lines;
     this->nb_columns = nb_columns;
-    this->brick_width = width;
-    this->brick_height = height;
+    this->brick_width = width/nb_columns;
+    this->brick_height = height/nb_lines;
     this->init_grid();
 }
 

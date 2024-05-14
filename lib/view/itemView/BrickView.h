@@ -7,7 +7,7 @@
 #include <iostream>
 #include <memory>
 
-void drawBrick(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y,const float width, const float height, const Brick &brick);
+void drawBrick(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &renderer,const float width, const float height, const Brick &brick);
 
 
 #endif // BRICK_VIEW_H
