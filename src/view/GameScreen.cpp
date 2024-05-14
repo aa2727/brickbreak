@@ -1,6 +1,6 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
-#include "view/itemView/BrickView.h"
+//#include "view/itemView/BrickView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
                            balls(),
@@ -100,7 +100,7 @@ void GameScreen::update()
 {
     for (auto it = balls.begin(); it != balls.end(); ++it)
     {
-        it->get()->move(3.);
+        it->get()->move(0.1);
         (*it)->resolve_collision(*plat);
         for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
         {
