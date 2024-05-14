@@ -6,18 +6,17 @@ Grid::Grid() : grid(nullptr)
     this->init_grid();
 }
 
-Grid::Grid(std::array<float, 2> position, int size, int thickness, int nb_lines, int nb_columns) : Solid(position)
+Grid::Grid(std::array<float, 2> position, int width, int height, int nb_lines, int nb_columns) : Solid(position)
 {
     this->nb_lines = nb_lines;
     this->nb_columns = nb_columns;
     this->init_grid();
 }
 
-Grid::Grid(float pos_x, float pos_y, int size, int thickness, int nb_lines, int nb_columns) : Solid(pos_x, pos_y)
+Grid::Grid(float pos_x, float pos_y, int width, int height, int nb_lines, int nb_columns) : Solid(pos_x, pos_y)
 {
     this->nb_lines = nb_lines;
     this->nb_columns = nb_columns;
-    std::cout << "Grid constructor" << "size: " << this->nb_lines*this->nb_columns << std::endl; // "size: 25
     this->init_grid();
 }
 
@@ -42,4 +41,14 @@ void Grid::init_grid()
 std::vector<std::shared_ptr<Brick>> Grid::get_grid() const
 {
     return *this->grid;
+}
+
+int Grid::get_nb_lines() const
+{
+    return this->nb_lines;
+}
+
+int Grid::get_nb_columns() const
+{
+    return this->nb_columns;
 }

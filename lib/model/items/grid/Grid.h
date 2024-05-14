@@ -23,6 +23,9 @@ class Grid : public Solid
     void init_grid();
 
     std::vector<std::shared_ptr<Brick>> get_grid() const;
+    int get_nb_lines() const;
+    int get_nb_columns() const;
+    
 
 };
     
