@@ -1,8 +1,10 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
+#include "view/itemView/GridView.h"
 //#include "view/itemView/BrickView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
+                           grid(nullptr),
                            balls(),
                            bricks()
 {
@@ -25,6 +27,7 @@ void GameScreen::init()
 
     // A supprimer apres creation  de la classe game model
     this->plat = std::make_shared<Platform>(2.0, 0.0, PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
+    this->grid = std::make_unique<Grid>();
     this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
     this->bricks.push_back(std::make_unique<Brick>(1, 255., 30., 50));
     this->bricks.push_back(std::make_unique<Brick>(1, 505., 30., 50));

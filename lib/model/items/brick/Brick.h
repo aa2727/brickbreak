@@ -30,7 +30,7 @@ public:
 
     void set_hp(int new_hp);
 
-    int get_side();
+    int get_side() const;
 
     void set_side(int new_side);
 

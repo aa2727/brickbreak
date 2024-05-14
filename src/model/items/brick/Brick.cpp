@@ -35,7 +35,7 @@ void Brick::set_hp(int new_hp)
     this->hp = new_hp;
 }
 
-int Brick::get_side()
+int Brick::get_side() const
 {
     return this->side;
 }
