@@ -9,4 +9,7 @@ void drawBrick(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer
     rect.h = brick.get_side();
     SDL_SetRenderDrawColor(renderer.get(), 0, 0, 255, 255);
     SDL_RenderFillRect(renderer.get(), &rect);
+    // black border
+    SDL_SetRenderDrawColor(renderer.get(), 0, 0, 0, 255);
+    SDL_RenderDrawRect(renderer.get(), &rect);
 }

@@ -58,7 +58,6 @@ void Ball::set_radius(unsigned int new_radius)
 
 void Ball::move(float speed)
 {
-    std::cout << "Ball moved" << get_direction()[0] << ", " << get_direction()[1] << std::endl;
     std::array<float, 2> new_pos;
     for (int i = 0; i < new_pos.size(); i++)
         new_pos[i] = get_position()[i] + speed * get_direction()[i];

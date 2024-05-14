@@ -1,7 +1,6 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
 #include "view/itemView/GridView.h"
-//#include "view/itemView/BrickView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
                            grid(nullptr),
@@ -27,7 +26,7 @@ void GameScreen::init()
 
     // A supprimer apres creation  de la classe game model
     this->plat = std::make_shared<Platform>(2.0, 0.0, PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
-    this->grid = std::make_unique<Grid>();
+    this->grid = std::make_unique<Grid>(0, 0, 5, 5,6,6);
     this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
     this->bricks.push_back(std::make_unique<Brick>(1, 255., 30., 50));
     this->bricks.push_back(std::make_unique<Brick>(1, 505., 30., 50));
@@ -62,6 +61,7 @@ void GameScreen::render()
 {
     SDL_SetRenderDrawColor(this->renderer.get(), 133, 133, 133, 255);
     SDL_RenderClear(this->renderer.get());
+    this->drawScreenGrid();
     this->drawPlatform();
     this->drawBalls();
     this->drawBricks();
@@ -97,6 +97,11 @@ void GameScreen::drawBricks()
         SDL_SetRenderDrawColor(this->renderer.get(), 0, 255, 0, 255);
         SDL_RenderFillRect(this->renderer.get(), &rect);
     }
+}
+
+void GameScreen::drawScreenGrid()
+{
+    drawGrid(this->renderer,0,0,*grid);
 }
 
 void GameScreen::update()

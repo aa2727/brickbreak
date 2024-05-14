@@ -13,7 +13,7 @@ class Grid : public Solid
     private:
     int nb_lines;
     int nb_columns;
-    std::unique_ptr<std::vector<std::vector<std::shared_ptr<Brick>>>> grid;
+    std::unique_ptr<std::vector<std::shared_ptr<Brick>>> grid;
 
     public:
     Grid();
@@ -22,7 +22,7 @@ class Grid : public Solid
     ~Grid();
     void init_grid();
 
-    std::vector<std::vector<std::shared_ptr<Brick>>> get_grid() const;
+    std::vector<std::shared_ptr<Brick>> get_grid() const;
 
 };
     

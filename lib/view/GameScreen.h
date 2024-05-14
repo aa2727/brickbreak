@@ -32,6 +32,7 @@ public:
     void drawPlatform();
     void drawBalls();
     void drawBricks();
+    void drawScreenGrid();
 
 private:
     std::shared_ptr<Platform> plat;
