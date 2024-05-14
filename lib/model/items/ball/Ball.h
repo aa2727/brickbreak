@@ -10,17 +10,17 @@ class Ball : public Solid
     // data members
 private:
     std::array<float, 2> direction;
-    unsigned int radius = 10;
+    unsigned int radius;
 
     // constructors and destructors
 public:
     Ball();
 
-    Ball(std::array<float, 2> direction);
+    Ball(std::array<float, 2> direction, unsigned int radius);
 
-    Ball(float dir_x, float dir_y);
+    Ball(float dir_x, float dir_y, unsigned int radius);
 
-    Ball(float pos_x, float pos_y, float dir_x, float dir_y);
+    Ball(float pos_x, float pos_y, float dir_x, float dir_y, unsigned int radius);
 
     Ball(const Ball &other);
 
@@ -31,6 +31,10 @@ public:
     std::array<float, 2> get_direction();
 
     void set_direction(std::array<float, 2> new_pos);
+
+    unsigned int get_radius();
+
+    void set_radius(unsigned int new_radius);
 
     // tools
 public:

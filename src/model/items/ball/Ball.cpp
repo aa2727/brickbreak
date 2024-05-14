@@ -6,25 +6,29 @@
 
 Ball::Ball() {}
 
-Ball::Ball(std::array<float, 2> direction)
+Ball::Ball(std::array<float, 2> direction, unsigned int radius)
 {
     this->direction = direction;
+    this->radius = radius;
 }
 
-Ball::Ball(float dir_x, float dir_y)
+Ball::Ball(float dir_x, float dir_y, unsigned int radius)
 {
     this->direction = {dir_x, dir_y};
+    this->radius = radius;
 }
 
-Ball::Ball(float pos_x, float pos_y, float dir_x, float dir_y)
+Ball::Ball(float pos_x, float pos_y, float dir_x, float dir_y, unsigned int radius)
 {
     this->direction = {dir_x, dir_y};
     this->set_position({pos_x, pos_y});
+    this->radius = radius;
 }
 
 Ball::Ball(const Ball &other)
 {
     this->direction = other.direction;
+    this->radius = other.radius;
 }
 
 Ball::~Ball()
@@ -42,6 +46,16 @@ void Ball::set_direction(std::array<float, 2> new_pos)
     this->direction = new_pos;
 }
 
+unsigned int Ball::get_radius()
+{
+    return this->radius;
+}
+
+void Ball::set_radius(unsigned int new_radius)
+{
+    this->radius = new_radius;
+}
+
 void Ball::move(float speed)
 {
     std::array<float, 2> new_pos;
@@ -56,13 +70,15 @@ bool Ball::collided_by(Solid &s)
 {
     float ball_x = this->get_position().at(0);
     float ball_y = this->get_position().at(1);
+
+    float top, left, bottom, right;
+
     if (auto platform = dynamic_cast<Platform *>(&s))
     {
-        float top, left, bottom, right;
-        top = platform->get_position().at(1) - platform->get_height() / 2;
-        bottom = platform->get_position().at(0) + platform->get_height() / 2;
-        left = platform->get_position().at(0) - platform->get_size() / 2;
-        right = platform->get_position().at(1) + platform->get_size() / 2;
+        top = platform->get_position().at(1);
+        bottom = platform->get_position().at(1) + platform->get_thickness();
+        left = platform->get_position().at(0);
+        right = platform->get_position().at(0) + platform->get_size();
 
         float closest_x, closest_y;
         closest_x = std::clamp(ball_x, left, right);
@@ -77,6 +93,20 @@ bool Ball::collided_by(Solid &s)
 
     else if (auto brick = dynamic_cast<Brick *>(&s))
     {
+        top = brick->get_position().at(1);
+        bottom = brick->get_position().at(1) + brick->get_side();
+        left = brick->get_position().at(0);
+        right = brick->get_position().at(0) - brick->get_side();
+
+        float closest_x, closest_y;
+        closest_x = std::clamp(ball_x, left, right);
+        closest_y = std::clamp(ball_y, top, bottom);
+
+        auto square = [](auto x)
+        { return x * x; };
+
+        if (std::sqrt(square(closest_x - ball_x) + square(closest_y - ball_y)) <= this->radius)
+            return true;
     }
 
     return false;

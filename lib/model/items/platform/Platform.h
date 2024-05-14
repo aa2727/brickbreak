@@ -11,19 +11,19 @@ class Platform : public Solid
 private:
     std::array<float, 2> direction;
     int size; // taille globale
-    int height = 2;
+    int thickness; // epaisseur
 
     // constructors and destructors
 public:
     Platform();
 
-    Platform(std::array<float, 2> direction,std::array<float, 2> position, int size);
+    Platform(std::array<float, 2> direction,std::array<float, 2> position, int size, int thickness);
 
-    Platform(float dir_x, float dir_y, float pos_x, float pos_y, int size);
+    Platform(float dir_x, float dir_y, float pos_x, float pos_y, int size, int thickness);
 
-    Platform(std::array<float, 2> direction, int size);
+    Platform(std::array<float, 2> direction, int size, int thickness);
 
-    Platform(float dir_x, float dir_y, int size);
+    Platform(float dir_x, float dir_y, int size, int thickness);
 
     Platform(const Platform &other);
 
@@ -32,16 +32,14 @@ public:
     // getters and setters
 public:
     std::array<float, 2> get_direction();
-
-    int get_size();
-
     void set_direction(std::array<float, 2> new_dir);
-
-    int get_height();
-
+    
+    int get_size();
     void set_size(int new_size);
+    
+    int get_thickness();
+    void set_thickness(int new_thick);
 
-    void set_x_position(float x);
 
     // tools
 public:

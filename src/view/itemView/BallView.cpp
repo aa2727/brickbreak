@@ -1,15 +1,15 @@
 #include "view/itemView/BallView.h"
 
 
-void drawBall(const std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y)
+void drawBall(const std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y, const int radius)
 {
-    for (int w = 0; w < BALL_RADIUS * 2; w++)
+    for (int w = 0; w < radius * 2; w++)
     {
-        for (int h = 0; h < BALL_RADIUS * 2; h++)
+        for (int h = 0; h < radius * 2; h++)
         {
-            int dx = BALL_RADIUS - w;
-            int dy = BALL_RADIUS - h;
-            if ((dx*dx + dy*dy) <= (BALL_RADIUS * BALL_RADIUS))
+            int dx = radius - w;
+            int dy = radius - h;
+            if ((dx*dx + dy*dy) <= (radius * radius))
             {
                 SDL_RenderDrawPoint(renderer.get(), x + dx, y + dy);
             }

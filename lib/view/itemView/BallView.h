@@ -5,9 +5,7 @@
 #include <iostream>
 #include <memory>
 
-#define BALL_RADIUS 10
-
-void drawBall(const std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y);
+void drawBall(const std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y, const int radius);
 
 
 #endif // BALL_VIEW_H
