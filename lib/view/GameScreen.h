@@ -13,6 +13,7 @@
 #include <array>
 #include <vector>
 #include <string>
+#include <algorithm>
 #include <iostream>
 
 #define PLATFORM_POS_X 255.0
@@ -24,6 +25,8 @@
 class GameScreen : public Screen
 {
 public:
+    int count = 0; // nombre de touche pressée
+
     GameScreen();
     ~GameScreen();
     void init() override;

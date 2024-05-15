@@ -38,17 +38,23 @@ void GameScreen::handleEvent(const SDL_Event &e)
         switch (e.key.keysym.sym)
         {
         case SDLK_LEFT:
+            count++;
             plat->set_direction({-(float)(plat->get_speed()), 0});
             break;
 
         case SDLK_RIGHT:
+            count++;
             plat->set_direction({(float)(plat->get_speed()), 0});
             break;
         }
     }
     else if (e.type == SDL_KEYUP)
     {
-        plat->set_direction({0, 0});
+        if (count > 0)
+            count--;
+        
+        if (count == 0)
+            plat->set_direction({0, 0});
     }
 
     if (e.type == SDL_MOUSEMOTION)
@@ -57,7 +63,8 @@ void GameScreen::handleEvent(const SDL_Event &e)
         Uint32 mouseState = SDL_GetMouseState(&mouse_x, &mouse_y);
 
         auto [p_x, p_y] = plat->get_position();
-        plat->set_position({(float)(mouse_x - plat->get_size() / 2), p_y});
+        int new_pos_x = std::clamp(mouse_x - plat->get_size() / 2, 0, WINDOW_WIDTH - plat->get_size());
+        plat->set_position({(float)new_pos_x, p_y});
     }
 }
 
@@ -104,7 +111,7 @@ void GameScreen::drawBricks()
 
 void GameScreen::update()
 {
-    plat->movement();
+    plat->movement(WINDOW_WIDTH);
 
     for (auto it = balls.begin(); it != balls.end(); ++it)
     {

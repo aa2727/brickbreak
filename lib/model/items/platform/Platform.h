@@ -45,7 +45,7 @@ public:
 
     // tools
 public:
-    void movement();
+    void movement(int window_width);
 };
 
 #endif // PLATFORM_H

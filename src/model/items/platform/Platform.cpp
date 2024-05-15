@@ -73,7 +73,14 @@ void Platform::set_speed(int new_speed)
     this->speed = new_speed;
 }
 
-void Platform::movement()
+void Platform::movement(int width)
 {
     this->position.at(0) += this->direction.at(0);
+
+    auto [x, y] = this->get_position();
+    if (x < 0 || x + this->get_size() > width)
+    {
+        std::cout << x << std::endl;
+        this->position.at(0) -= this->direction.at(0);
+    }
 }
