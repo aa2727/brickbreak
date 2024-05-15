@@ -24,7 +24,6 @@ void GameScreen::init()
     }
     this->game = std::make_unique<Game>(WINDOW_WIDTH, WINDOW_HEIGHT);
     this->game->init();
-    std::cout << "GameScreen initialized" << std::endl;
 }
 
 void GameScreen::handleEvent(const SDL_Event &e)
@@ -104,5 +103,21 @@ void GameScreen::drawWalls()
 
 void GameScreen::update()
 {
-    this->game->update();
+    if (!this->game->is_end())
+    {
+        this->game->update();
+    }
+    else
+    {
+        std::cout << "Game Over!" << std::endl;
+        if (this->game->balls_are_out())
+        {
+            std::cout << "You lost!" << std::endl;
+        }
+        else
+        {
+            std::cout << "You won!" << std::endl;
+        }
+    }
+    
 }
