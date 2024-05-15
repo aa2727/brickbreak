@@ -34,6 +34,8 @@ public:
 
     void set_side(int new_side);
 
+    bool collided_by(Solid &ball) override;
+
     // tools
 public:
 };

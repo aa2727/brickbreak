@@ -46,7 +46,7 @@ void Ball::set_direction(std::array<float, 2> new_pos)
     this->direction = new_pos;
 }
 
-unsigned int Ball::get_radius()
+unsigned int Ball::get_radius() const
 {
     return this->radius;
 }
@@ -114,8 +114,9 @@ bool Ball::collided_by(Solid &s)
 
 void Ball::resolve_collision(Solid &s)
 {
-    if (collided_by(s))
+    if (s.collided_by(*this))
     {
+        std::cout << "Collision detected" << std::endl;
         auto [dir_x, dir_y] = this->get_direction();
 
         while (collided_by(s))

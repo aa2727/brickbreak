@@ -116,11 +116,12 @@ void GameScreen::update()
 
     for (auto it = balls.begin(); it != balls.end(); ++it)
     {
-        (*it)->move(1);
+        (*it)->move(0.01);
         (*it)->resolve_collision(*plat);
-        for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
+        /*for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
         {
             (*it)->resolve_collision(**it_brick);
-        }
+        }*/
+        (*it)->resolve_collision(*grid);
     }
 }

@@ -1,4 +1,7 @@
 #include "model/items/brick/Brick.h"
+#include "model/items/ball/Ball.h"
+#include <algorithm>
+#include <cmath>
 
 Brick::Brick() {}
 
@@ -13,7 +16,6 @@ Brick::Brick(int hp, float pos_x, float pos_y, int side)
 {
     this->hp = hp;
     this->position = {pos_x, pos_y};
-    std::cout << "Brick created" << "pos_x" << pos_x << "pos_y" << pos_y << std::endl;
     this->side = side;
 }
 
@@ -24,7 +26,7 @@ Brick::Brick(const Brick &other)
     this->side = other.side;
 }
 
-Brick::~Brick() 
+Brick::~Brick()
 {
     std::cout << "Brick destroyed" << std::endl;
 }
@@ -47,4 +49,29 @@ int Brick::get_side() const
 void Brick::set_side(int new_side)
 {
     this->side = new_side;
+}
+
+bool Brick::collided_by(Solid &ball)
+{
+    // cast the ball
+    Ball &ball2 = dynamic_cast<Ball &>(ball);
+    float ball_x = ball.get_position().at(0);
+    float ball_y = ball.get_position().at(1);
+
+    float top, left, bottom, right;
+    top = this->get_position().at(1);
+    bottom = this->get_position().at(1) + this->get_side();
+    left = this->get_position().at(0);
+    right = this->get_position().at(0) - this->get_side();
+
+    float closest_x, closest_y;
+    closest_x = std::clamp(ball_x, left, right);
+    closest_y = std::clamp(ball_y, top, bottom);
+
+    auto square = [](auto x)
+    { return x * x; };
+
+    if (std::sqrt(square(closest_x - ball_x) + square(closest_y - ball_y)) <= ball2.get_radius())
+        return true;
+    return false;
 }

@@ -27,6 +27,8 @@ class Grid : public Solid
     std::vector<std::shared_ptr<Brick>> get_grid() const;
     int get_nb_lines() const;
     int get_nb_columns() const;
+    bool is_empty() const;
+    bool collided_by(Solid &ball) override;
 
 
 };

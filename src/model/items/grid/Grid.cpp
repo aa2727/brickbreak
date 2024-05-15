@@ -55,3 +55,29 @@ int Grid::get_nb_columns() const
 {
     return this->nb_columns;
 }
+
+bool Grid::is_empty() const
+{
+    for (auto &brick : *this->grid)
+    {
+        if (brick->get_hp() > 0)
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+bool Grid::collided_by(Solid &ball)
+{
+    for (auto &brick : *this->grid)
+    {
+        if (brick->get_hp() > 0 && brick->collided_by(ball))
+        {
+            std::cout << "collided_by" << std::endl;
+            brick->set_hp(brick->get_hp() - 1);
+            return true;
+        }
+    }
+    return false;
+}
