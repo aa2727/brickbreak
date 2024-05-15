@@ -12,6 +12,14 @@ Brick::Brick(int hp, std::array<float, 2> position, int side)
     this->side = side;
 }
 
+Brick::Brick(int hp, float pos_x, float pos_y, float width, float height)
+{
+    this->hp = hp;
+    this->position = {pos_x, pos_y};
+    this->width = width;
+    this->height = height;
+}
+
 Brick::Brick(int hp, float pos_x, float pos_y, int side)
 {
     this->hp = hp;
@@ -53,6 +61,7 @@ void Brick::set_side(int new_side)
 
 bool Brick::collided_by(Solid &ball)
 {
+    //std::cout << "Brick collided by ball" << std::endl;
     // cast the ball
     Ball &ball2 = dynamic_cast<Ball &>(ball);
     float ball_x = ball.get_position().at(0);
@@ -60,9 +69,9 @@ bool Brick::collided_by(Solid &ball)
 
     float top, left, bottom, right;
     top = this->get_position().at(1);
-    bottom = this->get_position().at(1) + this->get_side();
+    bottom = this->get_position().at(1) + this->get_height();
     left = this->get_position().at(0);
-    right = this->get_position().at(0) - this->get_side();
+    right = this->get_position().at(0) + this->get_width();
 
     float closest_x, closest_y;
     closest_x = std::clamp(ball_x, left, right);

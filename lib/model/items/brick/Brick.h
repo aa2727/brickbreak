@@ -20,6 +20,8 @@ public:
 
     Brick(int hp, float pos_x, float pos_y, int side);
 
+    Brick(int hp, float pos_x, float pos_y, float width, float height);
+
     Brick(const Brick &other);
 
     ~Brick();

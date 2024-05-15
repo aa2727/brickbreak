@@ -21,6 +21,7 @@ Grid::Grid(const float pos_x, const float pos_y, const int width, const int heig
     this->nb_columns = nb_columns;
     this->brick_width = width/nb_columns;
     this->brick_height = height/nb_lines;
+    std::cout << "Grid created" << "width: " << width/nb_columns << "height: " << height/nb_lines << std::endl;
     this->init_grid();
 }
 
@@ -36,7 +37,8 @@ void Grid::init_grid()
     {
         for (int j = 0; j < this->nb_columns; j++)
         {
-            this->grid->at(i*this->nb_columns + j) = std::make_shared<Brick>(1, j*this->brick_width, i*this->brick_height, 10);
+            std::cout << "Brick created" << "line: " << i << "column: " << j << j*this->brick_width<< "," << i*this->brick_height << std::endl;
+            this->grid->at(i*this->nb_columns + j) = std::make_shared<Brick>(1, j*this->brick_width, i*this->brick_height, this->brick_width, this->brick_height);
         }
     }
 }
@@ -72,10 +74,11 @@ bool Grid::collided_by(Solid &ball)
 {
     for (auto &brick : *this->grid)
     {
+        //std::cout << "collided_by" << brick->get_hp() << " HP et Vrai ?" << brick->collided_by(ball) << std::endl;
         if (brick->get_hp() > 0 && brick->collided_by(ball))
         {
-            std::cout << "collided_by" << std::endl;
-            brick->set_hp(brick->get_hp() - 1);
+           // std::cout << "collided_by" << std::endl;
+          // std::cout << "Brick position: " << brick->get_position()[0] << ", " << brick->get_position()[1] << std::endl;
             return true;
         }
     }

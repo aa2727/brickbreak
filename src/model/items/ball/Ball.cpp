@@ -119,7 +119,7 @@ void Ball::resolve_collision(Solid &s)
         std::cout << "Collision detected" << std::endl;
         auto [dir_x, dir_y] = this->get_direction();
 
-        while (collided_by(s))
+        while (s.collided_by(*this))
         {
             auto [x, y] = this->get_position(); // stylé la feature
 
