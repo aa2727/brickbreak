@@ -58,15 +58,6 @@ public:
     void tick_time();
 
     /**
-     * @brief  Check if the ball is colliding with a solid
-     * 
-     * @param s  the solid to check the collision with
-     * @return true  if the ball is colliding with the solid
-     * @return false  if the ball is not colliding with the solid
-     */
-    bool collided_by(Solid &s) override;
-
-    /**
      * @brief  Resolve the collision between the ball and a solid
      * 
      * @param s  the solid to resolve the collision with

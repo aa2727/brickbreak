@@ -4,7 +4,12 @@
 #include <algorithm>
 #include <cmath>
 
-Ball::Ball() {}
+Ball::Ball() 
+{
+    this->direction = {0, 0};
+    this->radius = 0;
+
+}
 
 Ball::Ball(std::array<float, 2> direction, unsigned int radius)
 {
