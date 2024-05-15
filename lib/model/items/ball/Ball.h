@@ -42,8 +42,6 @@ public:
 
     void tick_time();
 
-    bool collided_by(Solid &s) override;
-
     void resolve_collision(Solid &s);
 };
 
