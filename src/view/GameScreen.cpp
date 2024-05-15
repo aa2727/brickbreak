@@ -28,8 +28,7 @@ void GameScreen::init()
     this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
     this->grid = std::make_unique<Grid>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/4,6,6);
     this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
-    this->bricks.push_back(std::make_unique<Brick>(1, 255., 30., 50));
-    this->bricks.push_back(std::make_unique<Brick>(1, 505., 30., 50));
+    this->bricks.push_back(std::make_unique<Brick>(1, 0, 30., 117,37));
 }
 
 void GameScreen::handleEvent(const SDL_Event &e)
@@ -106,7 +105,7 @@ void GameScreen::drawBricks()
     for (auto it = bricks.begin(); it != bricks.end(); ++it)
     {
         auto [x, y] = (*it)->get_position();
-        SDL_Rect rect = {static_cast<int>(x), static_cast<int>(y), (int)((*it)->get_side()), (int)((*it)->get_side())};
+        SDL_Rect rect = {static_cast<int>(x), static_cast<int>(y), (int)(*it)->get_width(), (int)(*it)->get_height()};
         SDL_SetRenderDrawColor(this->renderer.get(), 0, 255, 0, 255);
         SDL_RenderFillRect(this->renderer.get(), &rect);
     }
@@ -123,11 +122,12 @@ void GameScreen::update()
 
     for (auto it = balls.begin(); it != balls.end(); ++it)
     {
-        (*it)->move(1);
+        (*it)->move(0.01);
         (*it)->resolve_collision(*plat);
         for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
         {
             (*it)->resolve_collision(**it_brick);
         }
+        (*it)->resolve_collision(*grid);
     }
 }

@@ -32,7 +32,7 @@ public:
 
     void set_direction(std::array<float, 2> new_pos);
 
-    unsigned int get_radius();
+    unsigned int get_radius() const;
 
     void set_radius(unsigned int new_radius);
 

@@ -13,6 +13,8 @@ class Solid
     // data members
 protected:
     std::array<float, 2> position;
+    float width;
+    float height;
 
     // Constructors and destructors
 public:
@@ -20,7 +22,9 @@ public:
 
     Solid(std::array<float, 2> position);
 
-    Solid(float pos_x, float pos_y);
+    Solid(const float pos_x, const float pos_y);
+
+    Solid(const float pos_x, const float pos_y, const float width, const float height);
 
     Solid(const Solid &other);
 
@@ -31,6 +35,10 @@ public:
     void set_position(std::array<float, 2> new_pos);
 
     std::array<float, 2> get_position() const;
+
+    float get_width() const;
+
+    float get_height() const;
 
     // tools
 public:
