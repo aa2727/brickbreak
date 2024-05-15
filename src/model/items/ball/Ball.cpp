@@ -154,7 +154,7 @@ void Ball::resolve_collision(Solid &s)
         }
 
         // PAS DE REBOND AVEC LE DESSOUS
-        float new_dir_x = -dir_x;
+        float new_dir_x = dir_x;
         float new_dir_y = dir_y;
 
         if (this->get_position().at(0) < s.get_position()[0] || this->get_position().at(0) > s.get_position()[0] + s.get_width())
