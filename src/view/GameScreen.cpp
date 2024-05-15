@@ -27,7 +27,7 @@ void GameScreen::init()
     // A supprimer apres creation  de la classe game model
     this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
     this->grid = std::make_unique<Grid>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/4,6,6);
-    this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
+    this->balls.push_back(std::make_unique<Ball>(255., 400., 3, -3.5, 10));
     this->bricks.push_back(std::make_unique<Brick>(1, 255., 30., 50));
     this->bricks.push_back(std::make_unique<Brick>(1, 505., 30., 50));
 }

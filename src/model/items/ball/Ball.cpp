@@ -96,7 +96,7 @@ bool Ball::collided_by(Solid &s)
         top = brick->get_position().at(1);
         bottom = brick->get_position().at(1) + brick->get_side();
         left = brick->get_position().at(0);
-        right = brick->get_position().at(0) - brick->get_side();
+        right = brick->get_position().at(0) + brick->get_side();
 
         float closest_x, closest_y;
         closest_x = std::clamp(ball_x, left, right);
@@ -107,6 +107,34 @@ bool Ball::collided_by(Solid &s)
 
         if (std::sqrt(square(closest_x - ball_x) + square(closest_y - ball_y)) <= this->radius)
             return true;
+
+        // auto [brick_x, brick_y] = brick->get_position();
+
+        // // Calculate distance between ball center and brick center
+        // double dx = ball_x - (brick_x + brick->get_side() / 2);
+        // double dy = ball_y - (brick_y + brick->get_side() / 2);
+        // double distance = sqrt(dx * dx + dy * dy);
+
+        // // Calculate minimum distance for collision
+        // double minDistance = this->get_radius() + brick->get_side() / 2;
+
+        // // Check if there is a collision
+        // if (distance <= minDistance)
+        // {
+        //     // Calculate the sign of the direction components
+        //     double signX = std::signbit(ball.direction[0]) ? -1.0 : 1.0;
+        //     double signY = std::signbit(ball.direction[1]) ? -1.0 : 1.0;
+
+        //     // Update ball direction based on collision
+        //     ball.direction[0] = signX * std::clamp(ball.direction[0], -1.0, 1.0); // Clamp x direction
+        //     ball.direction[1] = signY * std::clamp(ball.direction[1], -1.0, 1.0); // Clamp y direction
+
+        //     return true;
+        // }
+        // else
+        // {
+        //     return false;
+        // }
     }
 
     return false;
@@ -125,18 +153,14 @@ void Ball::resolve_collision(Solid &s)
             set_position({x - dir_x, y - dir_y});
         }
 
-        float new_dir_x = dir_x;
+        // PAS DE REBOND AVEC LE DESSOUS
+        float new_dir_x = -dir_x;
         float new_dir_y = dir_y;
 
-        if (this->get_position().at(0) < 0 || this->get_position().at(0) > 640)
-        {
-             float new_dir_x = -dir_x;
-        }
-        if (this->get_position().at(1) < 0 || this->get_position().at(1) > 480)
-        {
-            float new_dir_y = -dir_y;
-        }
-    
+        // PAS DE REBOND AVEC LE COTE
+        // float new_dir_x = -dir_x;
+        // float new_dir_y = dir_y;
+
         set_direction({new_dir_x, new_dir_y});
     }
 }
