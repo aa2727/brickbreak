@@ -14,6 +14,13 @@ Solid::Solid(float pos_x, float pos_y)
     this->position = {pos_x, pos_y};
 }
 
+Solid::Solid(float pos_x, float pos_y, float width, float height)
+{
+    this->position = {pos_x, pos_y};
+    this->width = width;
+    this->height = height;
+}
+
 Solid::Solid(const Solid &other)
 {
     this->position = other.position;
@@ -39,4 +46,14 @@ bool Solid::collided_by(Solid &ball)
 bool Solid::operator<(const Solid &other) const
 {
     return std::strcmp(typeid(this).name(), typeid(&other).name()) < 0;
+}
+
+float Solid::get_width() const
+{
+    return this->width;
+}
+
+float Solid::get_height() const
+{
+    return this->height;
 }
