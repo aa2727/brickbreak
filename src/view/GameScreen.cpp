@@ -1,11 +1,10 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
 #include "view/itemView/GridView.h"
+//#include "view/itemView/PlatformView.h"
+#include "view/itemView/WallView.h"
 
-GameScreen::GameScreen() : plat(nullptr),
-                           grid(nullptr),
-                           balls(),
-                           bricks()
+GameScreen::GameScreen() : game(nullptr)
 {
     // nothing to do
 }
@@ -23,38 +22,29 @@ void GameScreen::init()
         std::cerr << "Renderer could not be created! SDL Error: " << SDL_GetError() << std::endl;
         exit(1);
     }
-
-    // A supprimer apres creation  de la classe game model
-    this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
-    this->grid = std::make_unique<Grid>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/4,6,6);
-    this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
+    this->game = std::make_unique<Game>(WINDOW_WIDTH, WINDOW_HEIGHT);
+    this->game->init();
 }
 
 void GameScreen::handleEvent(const SDL_Event &e)
 {
     if (e.type == SDL_KEYDOWN)
     {
-        auto [p_x, p_y] = plat->get_position();
+        auto [p_x, p_y] = this->game->get_platform().get_position();
         switch (e.key.keysym.sym)
         {
         case SDLK_LEFT:
-            count++;
-            plat->set_direction({-(float)(plat->get_speed()), 0});
+            this->game->get_platform().set_direction({-(float)(this->game->get_platform().get_speed()), 0});
             break;
 
         case SDLK_RIGHT:
-            count++;
-            plat->set_direction({(float)(plat->get_speed()), 0});
+            this->game->get_platform().set_direction({(float)(this->game->get_platform().get_speed()), 0});
             break;
         }
     }
     else if (e.type == SDL_KEYUP)
     {
-        if (count > 0)
-            count--;
-        
-        if (count == 0)
-            plat->set_direction({0, 0});
+        this->game->get_platform().set_direction({0, 0});
     }
 
     if (e.type == SDL_MOUSEMOTION)
@@ -62,9 +52,8 @@ void GameScreen::handleEvent(const SDL_Event &e)
         int mouse_x, mouse_y;
         Uint32 mouseState = SDL_GetMouseState(&mouse_x, &mouse_y);
 
-        auto [p_x, p_y] = plat->get_position();
-        int new_pos_x = std::clamp(mouse_x - plat->get_width() / 2, 0.f, WINDOW_WIDTH - plat->get_width());
-        plat->set_position({(float)new_pos_x, p_y});
+        auto [p_x, p_y] = this->game->get_platform().get_position();
+        this->game->get_platform().set_position({(float)(mouse_x - this->game->get_platform().get_width() / 2), p_y});
     }
 }
 
@@ -72,6 +61,7 @@ void GameScreen::render()
 {
     SDL_SetRenderDrawColor(this->renderer.get(), 133, 133, 133, 255);
     SDL_RenderClear(this->renderer.get());
+    this->drawWalls();
     this->drawScreenGrid();
     this->drawPlatform();
     this->drawBalls();
@@ -80,9 +70,9 @@ void GameScreen::render()
 
 void GameScreen::drawPlatform()
 {
-    auto [plat_x, plat_y] = plat->get_position();
+    auto [plat_x, plat_y] = this->game->get_platform().get_position();
     // cast float to int
-    SDL_Rect rect = {static_cast<int>(plat_x), static_cast<int>(plat_y), static_cast<int>(plat->get_width()), static_cast<int>(plat->get_height())};
+    SDL_Rect rect = {static_cast<int>(plat_x), static_cast<int>(plat_y), static_cast<int>(this->game->get_platform().get_width()), static_cast<int>(this->game->get_platform().get_height())};
     SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 0, 255);
     SDL_RenderFillRect(this->renderer.get(), &rect);
 }
@@ -90,7 +80,7 @@ void GameScreen::drawPlatform()
 void GameScreen::drawBalls()
 {
     // use iterator to draw all balls
-    for (auto it = balls.begin(); it != balls.end(); ++it)
+    for (auto it = this->game->get_balls().begin(); it != this->game->get_balls().end(); ++it)
     {
         SDL_SetRenderDrawColor(this->renderer.get(), 255, 0, 0, 255);
         auto [x, y] = (*it)->get_position();
@@ -98,34 +88,36 @@ void GameScreen::drawBalls()
     }
 }
 
-void GameScreen::drawBricks()
-{
-    for (auto it = bricks.begin(); it != bricks.end(); ++it)
-    {
-        auto [x, y] = (*it)->get_position();
-        SDL_Rect rect = {static_cast<int>(x), static_cast<int>(y), (int)(*it)->get_width(), (int)(*it)->get_height()};
-        SDL_SetRenderDrawColor(this->renderer.get(), 0, 255, 0, 255);
-        SDL_RenderFillRect(this->renderer.get(), &rect);
-    }
-}
-
 void GameScreen::drawScreenGrid()
 {
-    drawGrid(this->renderer,WINDOW_WIDTH,WINDOW_HEIGHT/4,*grid);
+    drawGrid(this->renderer,WINDOW_WIDTH,WINDOW_HEIGHT/4,this->game->get_grid());
+}
+
+void GameScreen::drawWalls()
+{
+    for (auto it = this->game->get_walls().begin(); it != this->game->get_walls().end(); ++it)
+    {
+        drawWall(this->renderer, **it);
+    }
 }
 
 void GameScreen::update()
 {
-    plat->movement(WINDOW_WIDTH);
-
-    for (auto it = balls.begin(); it != balls.end(); ++it)
+    if (!this->game->is_end())
     {
-        (*it)->move(0.01);
-        (*it)->resolve_collision(*plat);
-        for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
-        {
-            (*it)->resolve_collision(**it_brick);
-        }
-        (*it)->resolve_collision(*grid);
+        this->game->update();
     }
+    else
+    {
+        std::cout << "Game Over!" << std::endl;
+        if (this->game->balls_are_out())
+        {
+            std::cout << "You lost!" << std::endl;
+        }
+        else
+        {
+            std::cout << "You won!" << std::endl;
+        }
+    }
+    
 }

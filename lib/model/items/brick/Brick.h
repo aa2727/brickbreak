@@ -9,6 +9,8 @@ class Brick : public Solid
 {
     // data members
 private:
+    int col;
+    int row;
     int hp;
     int side;
 
@@ -29,6 +31,10 @@ public:
     // getters and setters
 public:
     int get_hp() const;
+
+    int get_col();
+
+    int get_row();
 
     void set_hp(int new_hp);
 
