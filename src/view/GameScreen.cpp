@@ -35,26 +35,42 @@ void GameScreen::handleEvent(const SDL_Event &e)
         switch (e.key.keysym.sym)
         {
         case SDLK_LEFT:
+            count++;
             this->game->get_platform().set_direction({-(float)(this->game->get_platform().get_speed()), 0});
             break;
 
         case SDLK_RIGHT:
+            count++;
             this->game->get_platform().set_direction({(float)(this->game->get_platform().get_speed()), 0});
             break;
         }
     }
     else if (e.type == SDL_KEYUP)
     {
-        this->game->get_platform().set_direction({0, 0});
+        switch (e.key.keysym.sym)
+        {
+        case SDLK_LEFT:
+        case SDLK_RIGHT:
+            count--;
+            break;
+        }
+
+        if (count == 0)
+            this->game->get_platform().set_direction({0, 0});
     }
 
     if (e.type == SDL_MOUSEMOTION)
     {
+        
         int mouse_x, mouse_y;
         Uint32 mouseState = SDL_GetMouseState(&mouse_x, &mouse_y);
 
         auto [p_x, p_y] = this->game->get_platform().get_position();
-        this->game->get_platform().set_position({(float)(mouse_x - this->game->get_platform().get_width() / 2), p_y});
+        float middle = this->game->get_platform().get_width() / 2;
+
+        int new_p_x = std::clamp((int)mouse_x, 0 + (int)middle, WINDOW_WIDTH - (int)middle);
+
+        this->game->get_platform().set_position({(float)new_p_x - middle, p_y});
     }
 }
 
