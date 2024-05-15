@@ -5,6 +5,7 @@
 #include "model/items/ball/Ball.h"
 #include "model/items/wall/Wall.h"
 #include "model/items/grid/Grid.h"
+#include "model/bonus/Transformer.h"
 
 #define PLATFORM_POS_X 255.0
 #define PLATFORM_POS_Y 480.0
@@ -27,6 +28,7 @@ public:
     Grid &get_grid() { return *grid; }
     std::vector<std::unique_ptr<Wall>> &get_walls() { return walls; }
     std::vector<std::unique_ptr<Ball>> &get_balls() { return balls; }
+    std::vector<std::unique_ptr<Transformer>> &get_transformers() { return transformers; }
 
 private:
     int max_width;
@@ -35,6 +37,8 @@ private:
     std::unique_ptr<Grid> grid;
     std::vector<std::unique_ptr<Wall>> walls;
     std::vector<std::unique_ptr<Ball>> balls;
+    std::vector<std::unique_ptr<Transformer>> transformers;
+
 };
 
 
