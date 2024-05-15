@@ -51,7 +51,7 @@ void Screen::setParent(std::shared_ptr<Window> parent)
     this->parent = parent;
 }
 
-void Screen::setFont(TTF_Font &font)
+void Screen::setFont(const TTF_Font &font)
 {
     std::cout << "Screen setFont" << std::endl;
 }

@@ -5,6 +5,7 @@
 #include "model/items/platform/Platform.h"
 #include "model/items/ball/Ball.h"
 #include "model/items/brick/Brick.h"
+#include "model/items/grid/Grid.h"
 #include "model/items/Solid.h"
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
@@ -37,9 +38,11 @@ public:
     void drawPlatform();
     void drawBalls();
     void drawBricks();
+    void drawScreenGrid();
 
 private:
     std::shared_ptr<Platform> plat;
+    std::unique_ptr<Grid> grid;
     std::vector<std::unique_ptr<Ball>> balls;
     std::vector<std::unique_ptr<Brick>> bricks;
 };

@@ -13,6 +13,7 @@ Brick::Brick(int hp, float pos_x, float pos_y, int side)
 {
     this->hp = hp;
     this->position = {pos_x, pos_y};
+    std::cout << "Brick created" << "pos_x" << pos_x << "pos_y" << pos_y << std::endl;
     this->side = side;
 }
 
@@ -23,7 +24,10 @@ Brick::Brick(const Brick &other)
     this->side = other.side;
 }
 
-Brick::~Brick() {}
+Brick::~Brick() 
+{
+    std::cout << "Brick destroyed" << std::endl;
+}
 
 int Brick::get_hp()
 {
@@ -35,7 +39,7 @@ void Brick::set_hp(int new_hp)
     this->hp = new_hp;
 }
 
-int Brick::get_side()
+int Brick::get_side() const
 {
     return this->side;
 }
