@@ -10,19 +10,17 @@ class Platform : public Solid
     // data members
 private:
     std::array<float, 2> direction;
-    int size;
+    int speed = 5;
 
     // constructors and destructors
 public:
     Platform();
 
-    Platform(std::array<float, 2> direction,std::array<float, 2> position, int size);
+    Platform(std::array<float, 2> position, const float width, const float height);
 
-    Platform(float dir_x, float dir_y, float pos_x, float pos_y, int size);
+    Platform(const float pos_x, const float pos_y, const float width, const float height);
 
-    Platform(std::array<float, 2> direction, int size);
-
-    Platform(float dir_x, float dir_y, int size);
+    Platform(const float width, const float height);
 
     Platform(const Platform &other);
 
@@ -31,18 +29,15 @@ public:
     // getters and setters
 public:
     std::array<float, 2> get_direction();
-
-    int get_size();
-
     void set_direction(std::array<float, 2> new_dir);
 
-    void set_size(int new_size);
-
-    void set_x_position(float x);
+    int get_speed();
+    void set_speed(int new_speed);
 
     // tools
 public:
-    void movement(int direction);
+    void movement();
+    bool collided_by(Solid &ball) override;
 };
 
 #endif // PLATFORM_H

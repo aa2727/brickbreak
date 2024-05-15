@@ -1,6 +1,9 @@
 #ifndef SOLID_H
 #define SOLID_H
 
+#define LEFT 1
+#define RIGHT 2
+
 #include <iostream>
 #include <array>
 #include <cstring>
@@ -10,6 +13,8 @@ class Solid
     // data members
 protected:
     std::array<float, 2> position;
+    float width;
+    float height;
 
     // Constructors and destructors
 public:
@@ -17,7 +22,9 @@ public:
 
     Solid(std::array<float, 2> position);
 
-    Solid(float pos_x, float pos_y);
+    Solid(const float pos_x, const float pos_y);
+
+    Solid(const float pos_x, const float pos_y, const float width, const float height);
 
     Solid(const Solid &other);
 
@@ -29,9 +36,13 @@ public:
 
     std::array<float, 2> get_position() const;
 
+    float get_width() const;
+
+    float get_height() const;
+
     // tools
 public:
-    void collided_by(Solid &ball);
+    virtual bool collided_by(Solid &ball);
 
     bool operator<(const Solid &other) const;
 };

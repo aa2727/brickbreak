@@ -23,7 +23,7 @@ public:
     virtual void setRenderer(const SDL_Renderer &renderer);
     virtual void destroyRenderer();
     virtual void setWindow(std::shared_ptr<SDL_Window> window);
-    virtual void setFont(TTF_Font &font);
+    virtual void setFont(const TTF_Font &font);
 
 
 protected:

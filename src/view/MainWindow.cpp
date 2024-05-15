@@ -23,7 +23,7 @@ void MainWindow::init()
         std::cerr << "Echec de l'initialisation de la SDL " << SDL_GetError() << std::endl;
         exit(1);
     }
-    this->window = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>(SDL_CreateWindow("BrickxBreakx", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 700, 900, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
+    this->window = std::unique_ptr<SDL_Window, decltype(&SDL_DestroyWindow)>(SDL_CreateWindow("BrickxBreakx", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WINDOW_WIDTH, WINDOW_HEIGHT, SDL_WINDOW_SHOWN), SDL_DestroyWindow);
     if (this->window)
     {
         std::cout << "Window created" << std::endl;

@@ -1,8 +1,11 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
+#include "view/itemView/GridView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
-                           balls(nullptr)
+                           grid(nullptr),
+                           balls(),
+                           bricks()
 {
     // nothing to do
 }
@@ -22,31 +25,39 @@ void GameScreen::init()
     }
 
     // A supprimer apres creation  de la classe game model
-    this->plat = std::make_shared<Platform>(2.0,0.0,PLATFORM_POS_X,PLATFORM_POS_Y,1);
-    this->balls = std::make_unique<std::vector<std::unique_ptr<Ball>>>();
-    this->balls->push_back(std::make_unique<Ball>(31.0, 31.0,5.0,1.0));
-    this->balls->push_back(std::make_unique<Ball>(31.0, 31.0,1.0,1.0));
-    
-    
+    this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
+    this->grid = std::make_unique<Grid>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/4,6,6);
+    this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
 }
 
 void GameScreen::handleEvent(const SDL_Event &e)
 {
     if (e.type == SDL_KEYDOWN)
     {
+        auto [p_x, p_y] = plat->get_position();
         switch (e.key.keysym.sym)
         {
-        case SDLK_q:
         case SDLK_LEFT:
-            plat->movement(LEFT);
+            plat->set_direction({-(float)(plat->get_speed()), 0});
             break;
 
-        case SDLK_d:
         case SDLK_RIGHT:
-            plat->movement(RIGHT);
+            plat->set_direction({(float)(plat->get_speed()), 0});
             break;
-            // Add cases for other keys if needed
         }
+    }
+    else if (e.type == SDL_KEYUP)
+    {
+        plat->set_direction({0, 0});
+    }
+
+    if (e.type == SDL_MOUSEMOTION)
+    {
+        int mouse_x, mouse_y;
+        Uint32 mouseState = SDL_GetMouseState(&mouse_x, &mouse_y);
+
+        auto [p_x, p_y] = plat->get_position();
+        plat->set_position({(float)(mouse_x - plat->get_width() / 2), p_y});
     }
 }
 
@@ -54,6 +65,7 @@ void GameScreen::render()
 {
     SDL_SetRenderDrawColor(this->renderer.get(), 133, 133, 133, 255);
     SDL_RenderClear(this->renderer.get());
+    this->drawScreenGrid();
     this->drawPlatform();
     this->drawBalls();
     SDL_RenderPresent(this->renderer.get());
@@ -61,8 +73,9 @@ void GameScreen::render()
 
 void GameScreen::drawPlatform()
 {
+    auto [plat_x, plat_y] = plat->get_position();
     // cast float to int
-    SDL_Rect rect = {static_cast<int>(plat.get()->get_position().at(0)), static_cast<int>(plat.get()->get_position().at(1)),200 *plat.get()->get_size() , 40};
+    SDL_Rect rect = {static_cast<int>(plat_x), static_cast<int>(plat_y), static_cast<int>(plat->get_width()), static_cast<int>(plat->get_height())};
     SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 0, 255);
     SDL_RenderFillRect(this->renderer.get(), &rect);
 }
@@ -70,17 +83,42 @@ void GameScreen::drawPlatform()
 void GameScreen::drawBalls()
 {
     // use iterator to draw all balls
-    for (auto it = balls->begin(); it != balls->end(); ++it)
+    for (auto it = balls.begin(); it != balls.end(); ++it)
     {
         SDL_SetRenderDrawColor(this->renderer.get(), 255, 0, 0, 255);
-        drawBall(this->renderer,it->get()->get_position().at(0), it->get()->get_position().at(1));
+        auto [x, y] = (*it)->get_position();
+        drawBall(this->renderer, x, y, (int)((*it)->get_radius()));
     }
+}
+
+void GameScreen::drawBricks()
+{
+    for (auto it = bricks.begin(); it != bricks.end(); ++it)
+    {
+        auto [x, y] = (*it)->get_position();
+        SDL_Rect rect = {static_cast<int>(x), static_cast<int>(y), (int)(*it)->get_width(), (int)(*it)->get_height()};
+        SDL_SetRenderDrawColor(this->renderer.get(), 0, 255, 0, 255);
+        SDL_RenderFillRect(this->renderer.get(), &rect);
+    }
+}
+
+void GameScreen::drawScreenGrid()
+{
+    drawGrid(this->renderer,WINDOW_WIDTH,WINDOW_HEIGHT/4,*grid);
 }
 
 void GameScreen::update()
 {
-    for (auto it = balls->begin(); it != balls->end(); ++it)
+    plat->movement();
+
+    for (auto it = balls.begin(); it != balls.end(); ++it)
     {
-        it->get()->move(0.10);
+        (*it)->move(0.01);
+        (*it)->resolve_collision(*plat);
+        for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
+        {
+            (*it)->resolve_collision(**it_brick);
+        }
+        (*it)->resolve_collision(*grid);
     }
 }
