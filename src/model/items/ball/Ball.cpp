@@ -76,9 +76,9 @@ bool Ball::collided_by(Solid &s)
     if (auto platform = dynamic_cast<Platform *>(&s))
     {
         top = platform->get_position().at(1);
-        bottom = platform->get_position().at(1) + platform->get_thickness();
+        bottom = platform->get_position().at(1) + platform->get_height();
         left = platform->get_position().at(0);
-        right = platform->get_position().at(0) + platform->get_size();
+        right = platform->get_position().at(0) + platform->get_width();
 
         float closest_x, closest_y;
         closest_x = std::clamp(ball_x, left, right);
@@ -144,7 +144,6 @@ void Ball::resolve_collision(Solid &s)
 {
     if (s.collided_by(*this))
     {
-        std::cout << "Collision detected" << std::endl;
         auto [dir_x, dir_y] = this->get_direction();
 
         while (s.collided_by(*this))
@@ -158,10 +157,15 @@ void Ball::resolve_collision(Solid &s)
         float new_dir_x = -dir_x;
         float new_dir_y = dir_y;
 
-        // PAS DE REBOND AVEC LE COTE
-        // float new_dir_x = -dir_x;
-        // float new_dir_y = dir_y;
-
+        if (this->get_position().at(0) < s.get_position()[0] || this->get_position().at(0) > s.get_position()[0] + s.get_width())
+        {
+            new_dir_x = -dir_x;
+        }
+        if (this->get_position().at(1) < s.get_position()[0] || this->get_position().at(1) > s.get_position()[0]+ s.get_height())
+        {
+            new_dir_y = -dir_y;
+        }
+    
         set_direction({new_dir_x, new_dir_y});
     }
 }
