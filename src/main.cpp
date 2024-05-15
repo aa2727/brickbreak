@@ -6,8 +6,8 @@
 
 int main(int argc, char** argv)
 {
-    MainWindow* mainwindow = new MainWindow();
-    mainwindow->run();
-    SDL_Quit(); // ON SORT
+    MainWindow* mainwindow = new MainWindow(); // Create the main window
+    mainwindow->run(); // Start the main window
+    SDL_Quit(); // Leave SDL
     return 0;
 }

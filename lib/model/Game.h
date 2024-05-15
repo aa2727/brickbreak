@@ -11,6 +11,12 @@
 #define PLATFORM_POS_Y 480.0
 #define BALL_SPEED 0.1
 
+/**
+ * @brief Class for the game 
+ * This class is the main class of the game
+ * Handle the game logic generally
+ * 
+ */
 class Game
 {
 public:
@@ -19,9 +25,27 @@ public:
     ~Game();
     void init();
     void update();
+
+    /**
+     * @brief Check if the game is over (balls are out or all the bricks are destroyed)
+     * 
+     * @return true if the game is over
+     * @return false if the game is not over
+     */
     bool is_end();
 
+    /**
+     * @brief Check if the balls are out of the game (under the platform)
+     * 
+     * @return true if the balls are out
+     * @return false if the balls are not out
+     */
     bool balls_are_out();
+
+    /**
+     * @brief Handle the collision between the balls and the walls, the platform and the bricks
+     * 
+     */
     void handle_collision();
 
     Platform &get_platform() { return *plat; }
@@ -30,14 +54,13 @@ public:
     std::vector<std::unique_ptr<Ball>> &get_balls() { return balls; }
 
 private:
-    int max_width;
-    int max_height;
-    std::shared_ptr<Platform> plat;
-    std::unique_ptr<Grid> grid;
-    std::vector<std::unique_ptr<Wall>> walls;
-    std::vector<std::unique_ptr<Ball>> balls;
-    std::vector<std::unique_ptr<Transformer>> transformers;
-
+    int max_width; // Width of the game
+    int max_height; // Height of the game
+    std::shared_ptr<Platform> plat; // The platform
+    std::unique_ptr<Grid> grid; // The grid of bricks
+    std::vector<std::unique_ptr<Wall>> walls; // The three walls
+    std::vector<std::unique_ptr<Ball>> balls; // The balls
+    std::vector<std::unique_ptr<Transformer>> transformers; // The bonus/malus
 };
 
 

@@ -36,8 +36,19 @@ public:
 
     // tools
 public:
+
     void movement(int window_width);
+
+    /**
+     * @brief move the platform
+     * 
+     */
     void movement();
+
+    /**
+     * @brief call when the platform is hit by a ball
+     * 
+     */
     bool collided_by(Solid &ball) override;
 };
 

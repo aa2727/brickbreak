@@ -7,6 +7,12 @@
 #include <iostream>
 #include <memory>
 
+/**
+ * @brief draw the wall
+ * 
+ * @param renderer the renderer
+ * @param wall the wall
+ */
 void drawWall(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &renderer, const Wall &wall);
 
 

@@ -8,6 +8,11 @@
 #include <array>
 #include <cstring>
 
+
+/**
+ * @brief Class for the solid objects in the game which need to be hit
+ * 
+ */
 class Solid
 {
     // data members
@@ -42,6 +47,10 @@ public:
 
     // tools
 public:
+    /**
+     * @brief call when the solid is hit by a ball
+     * 
+     */
     virtual bool collided_by(Solid &ball);
 
     bool operator<(const Solid &other) const;

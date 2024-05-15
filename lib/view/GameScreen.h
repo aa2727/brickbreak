@@ -20,6 +20,12 @@
 #define WINDOW_WIDTH 700
 #define WINDOW_HEIGHT 900
 
+/**
+ * @brief Class for the game screen 
+ * This class is the main class of the game screen
+ * Handle the game screen logic for the game
+ * 
+ */
 class GameScreen : public Screen
 {
 public:
@@ -27,11 +33,32 @@ public:
 
     GameScreen();
     ~GameScreen();
+    /**
+     * @brief Initialize the game screen
+     * 
+     */
     void init() override;
+
+    /**
+     * @brief Handle the event for the game screen
+     * 
+     * @param e the event
+     */
     void handleEvent(const SDL_Event &e) override;
+
+    /**
+     * @brief render the game screen
+     * 
+     */
     void render() override;
+
+    /**
+     * @brief Call the game model update
+     * 
+     */
     void update() override;
 
+// Draw functions
     void drawPlatform();
     void drawBalls();
     void drawTransformers();
@@ -39,7 +66,7 @@ public:
     void drawWalls();
 
 private:
-    std::unique_ptr<Game> game;
+    std::unique_ptr<Game> game; // The game model
 };
 
 #endif // GAME_SCREEN_H

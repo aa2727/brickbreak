@@ -5,14 +5,18 @@
 #include <array>
 #include "./../Solid.h"
 
+/**
+ * @brief Class for the brick
+ * 
+ */
 class Brick : public Solid
 {
     // data members
 private:
-    int col;
-    int row;
-    int hp;
-    int side;
+    int col; // Column index of the brick
+    int row; // Row index of the brick
+    int hp; // Health points of the brick
+    int side; 
 
     // constructors and destructors
 public:
@@ -42,8 +46,16 @@ public:
 
     void set_side(int new_side);
 
+    /**
+     * @brief call when the brick is hit by a ball
+     * 
+     */
     virtual void hit_by_ball();
 
+    /**
+     * @brief call when the brick is hit by a ball
+     * 
+     */
     bool collided_by(Solid &ball) override;
 
     // tools

@@ -54,7 +54,7 @@ bool Game::balls_are_out()
 {
     for (auto &ball : this->balls)
     {
-        if (ball->get_position().at(1) < this->max_height)
+        if (ball->get_position().at(1) < this->max_height) // if the ball is not out (under the platform)
         {
             return false;
         }
@@ -66,9 +66,9 @@ void Game::handle_collision()
 {
     for(auto it = this->balls.begin(); it != this->balls.end(); ++it)
     {
-        (*it)->resolve_collision(*this->plat);
-        (*it)->resolve_collision(*this->grid);
-        for(auto it2 = this->walls.begin(); it2 != this->walls.end(); ++it2)
+        (*it)->resolve_collision(*this->plat); // resolve the collision between the ball and the platform
+        (*it)->resolve_collision(*this->grid); // resolve the collision between the ball and the grid
+        for(auto it2 = this->walls.begin(); it2 != this->walls.end(); ++it2)    // resolve the collision between the ball and the walls
         {
            (*it)->resolve_collision(**it2);
         }
