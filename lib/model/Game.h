@@ -8,7 +8,7 @@
 
 #define PLATFORM_POS_X 255.0
 #define PLATFORM_POS_Y 480.0
-#define BALL_SPEED 1.
+#define BALL_SPEED 0.2
 
 class Game
 {
@@ -22,6 +22,11 @@ public:
 
     bool balls_are_out();
     void handle_collision();
+
+    Platform &get_platform() { return *plat; }
+    Grid &get_grid() { return *grid; }
+    std::vector<std::unique_ptr<Wall>> &get_walls() { return walls; }
+    std::vector<std::unique_ptr<Ball>> &get_balls() { return balls; }
 
 private:
     int max_width;
