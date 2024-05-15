@@ -16,6 +16,12 @@ public:
     TransformerPlateform();
     TransformerPlateform(const std::array<int, 2> &pos);
     ~TransformerPlateform();
+    Type get_type() const;
+
+private:
+    Type type;
+
+
 };
 
 #endif

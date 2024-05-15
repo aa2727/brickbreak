@@ -1,6 +1,7 @@
 #include "model/items/grid/Grid.h"
 
-Grid::Grid() : grid(nullptr)
+Grid::Grid() : grid(nullptr),
+                transformers()
 {
     Grid({0, 0}, 0, 0, 5, 5);
     this->init_grid();
@@ -21,7 +22,7 @@ Grid::Grid(const float pos_x, const float pos_y, const int width, const int heig
     this->nb_columns = nb_columns;
     this->brick_width = width/nb_columns;
     this->brick_height = height/nb_lines;
-    std::cout << "Grid created" << "width: " << width/nb_columns << "height: " << height/nb_lines << std::endl;
+    //std::cout << "Grid created" << "width: " << width/nb_columns << "height: " << height/nb_lines << std::endl;
     this->init_grid();
 }
 
@@ -37,7 +38,6 @@ void Grid::init_grid()
     {
         for (int j = 0; j < this->nb_columns; j++)
         {
-            //std::cout << "Brick created" << "line: " << i << "column: " << j << j*this->brick_width<< "," << i*this->brick_height << std::endl;
             this->grid->at(i*this->nb_columns + j) = std::make_shared<Brick>(1, j*this->brick_width, i*this->brick_height, this->brick_width, this->brick_height);
         }
     }
@@ -46,6 +46,11 @@ void Grid::init_grid()
 std::vector<std::shared_ptr<Brick>> Grid::get_grid() const
 {
     return *this->grid;
+}
+
+std::vector<std::shared_ptr<Transformer>> Grid::get_transformers() const
+{
+    return this->transformers;
 }
 
 int Grid::get_nb_lines() const
@@ -77,6 +82,13 @@ bool Grid::collided_by(Solid &ball)
         if (brick->get_hp() > 0 && brick->collided_by(ball))
         {
             brick->hit_by_ball();
+            if (brick->get_hp() == 0)
+            {
+                if (rand() % 2 == 0)
+                {
+                    this->transformers.push_back(std::make_shared<Transformer>(static_cast<int>(brick->get_position().at(0)), static_cast<int>(brick->get_position().at(1))));
+                }
+            }
             return true;
         }
     }

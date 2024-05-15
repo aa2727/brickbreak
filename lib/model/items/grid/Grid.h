@@ -3,6 +3,7 @@
 
 #include "model/items/Solid.h"
 #include "model/items/brick/Brick.h"
+#include "model/bonus/Transformer.h"
 #include <vector>
 #include <memory>
 #include <iostream>
@@ -16,6 +17,7 @@ class Grid : public Solid
     int brick_width;
     int brick_height;
     std::unique_ptr<std::vector<std::shared_ptr<Brick>>> grid;
+    std::vector<std::shared_ptr<Transformer>> transformers;
 
     public:
     Grid();
@@ -25,6 +27,7 @@ class Grid : public Solid
     void init_grid();
 
     std::vector<std::shared_ptr<Brick>> get_grid() const;
+    std::vector<std::shared_ptr<Transformer>> get_transformers() const;
     int get_nb_lines() const;
     int get_nb_columns() const;
     bool is_empty() const;

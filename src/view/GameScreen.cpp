@@ -1,7 +1,8 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
 #include "view/itemView/GridView.h"
-//#include "view/itemView/PlatformView.h"
+#include "model/bonus/TransformerBall.h"
+#include "view/itemView/TransformerView.h"
 #include "view/itemView/WallView.h"
 
 GameScreen::GameScreen() : game(nullptr)
@@ -63,6 +64,7 @@ void GameScreen::render()
     SDL_RenderClear(this->renderer.get());
     this->drawWalls();
     this->drawScreenGrid();
+    this->drawTransformers();
     this->drawPlatform();
     this->drawBalls();
     SDL_RenderPresent(this->renderer.get());
@@ -90,7 +92,7 @@ void GameScreen::drawBalls()
 
 void GameScreen::drawScreenGrid()
 {
-    drawGrid(this->renderer,WINDOW_WIDTH,WINDOW_HEIGHT/4,this->game->get_grid());
+    drawGrid(this->renderer, WINDOW_WIDTH, WINDOW_HEIGHT / 4, this->game->get_grid());
 }
 
 void GameScreen::drawWalls()
@@ -98,6 +100,25 @@ void GameScreen::drawWalls()
     for (auto it = this->game->get_walls().begin(); it != this->game->get_walls().end(); ++it)
     {
         drawWall(this->renderer, **it);
+    }
+}
+
+void GameScreen::drawTransformers()
+{
+    std::cout << "Drawing transformers" << std::endl;
+    std::cout << "Number of transformers: " << &this->game->get_grid() << std::endl;
+    for (auto &trans : this->game->get_grid().get_transformers())
+    // for(auto it = this->game->get_grid().get_transformers().begin(); it != this->game->get_grid().get_transformers().end(); ++it)
+    {
+        if (trans != nullptr)
+        {
+            std::cout << "Drawing transformer ouaiiis" << std::endl;
+            std::cout << "Position: " << (trans) << std::endl;
+            std::cout << "Position: " << &this->renderer << std::endl;
+            auto [x, y] = (trans)->get_position();
+            std::cout << "Position: " << &x << " " << &y << std::endl;
+            drawTransformer(this->renderer, x, y, 10);
+        }
     }
 }
 
@@ -119,5 +140,4 @@ void GameScreen::update()
             std::cout << "You won!" << std::endl;
         }
     }
-    
 }

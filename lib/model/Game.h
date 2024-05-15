@@ -28,7 +28,6 @@ public:
     Grid &get_grid() { return *grid; }
     std::vector<std::unique_ptr<Wall>> &get_walls() { return walls; }
     std::vector<std::unique_ptr<Ball>> &get_balls() { return balls; }
-    std::vector<std::unique_ptr<Transformer>> &get_transformers() { return transformers; }
 
 private:
     int max_width;

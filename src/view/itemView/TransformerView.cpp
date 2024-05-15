@@ -3,6 +3,7 @@
 
 void drawTransformer(const std::unique_ptr<SDL_Renderer,decltype(&SDL_DestroyRenderer)> &renderer, const float x, const float y, const int radius)
 {
+    std::cout << "Drawing transformer >>>>>>>>>>>" << std::endl;
     // Color in green the transformer
     SDL_SetRenderDrawColor(renderer.get(), 0, 225, 0, 255);
     for (int w = 0; w < radius * 2; w++)

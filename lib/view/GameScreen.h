@@ -34,7 +34,7 @@ public:
 
     void drawPlatform();
     void drawBalls();
-    void drawBricks();
+    void drawTransformers();
     void drawScreenGrid();
     void drawWalls();
 
