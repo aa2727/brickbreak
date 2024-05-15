@@ -39,7 +39,7 @@ Brick::~Brick()
     std::cout << "Brick destroyed" << std::endl;
 }
 
-int Brick::get_hp()
+int Brick::get_hp() const
 {
     return this->hp;
 }

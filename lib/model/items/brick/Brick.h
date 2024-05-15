@@ -28,7 +28,7 @@ public:
 
     // getters and setters
 public:
-    int get_hp();
+    int get_hp() const;
 
     void set_hp(int new_hp);
 

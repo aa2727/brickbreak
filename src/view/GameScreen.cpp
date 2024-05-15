@@ -28,7 +28,6 @@ void GameScreen::init()
     this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
     this->grid = std::make_unique<Grid>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/4,6,6);
     this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
-    this->bricks.push_back(std::make_unique<Brick>(1, 0, 30., 117,37));
 }
 
 void GameScreen::handleEvent(const SDL_Event &e)
@@ -58,7 +57,7 @@ void GameScreen::handleEvent(const SDL_Event &e)
         Uint32 mouseState = SDL_GetMouseState(&mouse_x, &mouse_y);
 
         auto [p_x, p_y] = plat->get_position();
-        plat->set_position({(float)(mouse_x - plat->get_size() / 2), p_y});
+        plat->set_position({(float)(mouse_x - plat->get_width() / 2), p_y});
     }
 }
 
@@ -69,7 +68,6 @@ void GameScreen::render()
     this->drawScreenGrid();
     this->drawPlatform();
     this->drawBalls();
-    this->drawBricks();
     SDL_RenderPresent(this->renderer.get());
 }
 
@@ -77,7 +75,7 @@ void GameScreen::drawPlatform()
 {
     auto [plat_x, plat_y] = plat->get_position();
     // cast float to int
-    SDL_Rect rect = {static_cast<int>(plat_x), static_cast<int>(plat_y), plat->get_size(), plat->get_thickness()};
+    SDL_Rect rect = {static_cast<int>(plat_x), static_cast<int>(plat_y), static_cast<int>(plat->get_width()), static_cast<int>(plat->get_height())};
     SDL_SetRenderDrawColor(this->renderer.get(), 255, 255, 0, 255);
     SDL_RenderFillRect(this->renderer.get(), &rect);
 }

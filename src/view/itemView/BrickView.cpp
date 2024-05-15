@@ -2,6 +2,11 @@
 
 void drawBrick(const std::unique_ptr<SDL_Renderer, decltype(&SDL_DestroyRenderer)> &renderer,const float width, const float height, const Brick &brick)
 {
+    if (brick.get_hp() <= 0)
+    {
+        return;
+    }
+    
     SDL_Rect rect;
     rect.x = brick.get_position()[0];
     rect.y = brick.get_position()[1];
