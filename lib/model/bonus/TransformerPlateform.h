@@ -3,6 +3,8 @@
 
 #include "model/bonus/Transformer.h"
 
+#define BONUSPLATEFORM_WIDTH 2
+#define MALUSPLATEFORM_WIDTH 0.5
 class TransformerPlateform : public Transformer
 {
 public:
@@ -12,10 +14,7 @@ public:
         LITTLE = 1
     };
     TransformerPlateform();
-    TransformerPlateform(int posX, int posY);
     TransformerPlateform(const std::array<int, 2> &pos);
-    TransformerPlateform(const TransformerPlateform &b); // copy constructor
-    TransformerPlateform(const Transformer &b);          // copy constructor
     ~TransformerPlateform();
 };
 

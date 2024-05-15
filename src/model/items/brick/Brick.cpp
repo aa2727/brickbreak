@@ -94,3 +94,8 @@ bool Brick::collided_by(Solid &ball)
         return true;
     return false;
 }
+
+void Brick::hit_by_ball()
+{
+    this->hp--;
+}

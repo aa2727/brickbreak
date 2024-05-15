@@ -11,13 +11,20 @@ class Transformer
 
 protected:
     std::array<int, 2> position;
+    std::array<int, 2> direction;
 
 public:
     // Constructors
     Transformer();
-    Transformer(int posX, int posY);
+    Transformer(const int posX, const int posY);
     Transformer(const std::array<int, 2> &pos);
     // Destructor
     ~Transformer();
+
+    void fall(const float speed);
+    std::array<int, 2> get_position() const;
+    std::array<int, 2> get_direction() const;
+
 };
+
 #endif

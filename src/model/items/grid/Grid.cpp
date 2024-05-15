@@ -76,7 +76,7 @@ bool Grid::collided_by(Solid &ball)
     {
         if (brick->get_hp() > 0 && brick->collided_by(ball))
         {
-            brick->set_hp(brick->get_hp() - 1);
+            brick->hit_by_ball();
             return true;
         }
     }

@@ -42,6 +42,8 @@ public:
 
     void set_side(int new_side);
 
+    virtual void hit_by_ball();
+
     bool collided_by(Solid &ball) override;
 
     // tools

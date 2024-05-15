@@ -8,7 +8,7 @@
 
 #define PLATFORM_POS_X 255.0
 #define PLATFORM_POS_Y 480.0
-#define BALL_SPEED 0.5
+#define BALL_SPEED 0.1
 
 class Game
 {

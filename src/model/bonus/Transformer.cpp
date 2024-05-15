@@ -10,6 +10,7 @@ Transformer::Transformer()
 Transformer::Transformer(int posX, int posY)
 {
     position = {posX, posY};
+    direction = {0, 1};
 }
 
 Transformer::Transformer(const std::array<int, 2> &pos)
@@ -22,4 +23,9 @@ Transformer::Transformer(const std::array<int, 2> &pos)
 Transformer::~Transformer()
 {
     // nothing to do
+}
+
+void Transformer::fall(const float speed)
+{
+    position[1] += speed*this->direction[1];
 }

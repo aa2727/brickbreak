@@ -14,8 +14,6 @@ public:
     TransformerBall();
     TransformerBall(int posX, int posY);
     TransformerBall(const std::array<int, 2> &pos);
-    TransformerBall(const TransformerBall &b); // copy constructor
-    TransformerBall(const Transformer &b); // copy constructor
     ~TransformerBall();
 };
 
