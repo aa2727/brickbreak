@@ -1,10 +1,13 @@
 #include "view/GameScreen.h"
 #include "view/itemView/BallView.h"
 #include "view/itemView/GridView.h"
+//#include "view/itemView/PlatformView.h"
+#include "view/itemView/WallView.h"
 
 GameScreen::GameScreen() : plat(nullptr),
                            grid(nullptr),
                            balls(),
+                           walls(),
                            bricks()
 {
     // nothing to do
@@ -27,6 +30,9 @@ void GameScreen::init()
     // A supprimer apres creation  de la classe game model
     this->plat = std::make_shared<Platform>(PLATFORM_POS_X, PLATFORM_POS_Y, 200, 20);
     this->grid = std::make_unique<Grid>(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT/4,6,6);
+    this->walls.push_back(std::make_unique<Wall>(0, 0, WINDOW_WIDTH, 10));
+    this->walls.push_back(std::make_unique<Wall>(0, 0, 10, WINDOW_HEIGHT));
+    this->walls.push_back(std::make_unique<Wall>(WINDOW_WIDTH - 10, 0, 10, WINDOW_HEIGHT));
     this->balls.push_back(std::make_unique<Ball>(255., 400., 1, -1.5, 10));
 }
 
@@ -65,6 +71,7 @@ void GameScreen::render()
 {
     SDL_SetRenderDrawColor(this->renderer.get(), 133, 133, 133, 255);
     SDL_RenderClear(this->renderer.get());
+    this->drawWalls();
     this->drawScreenGrid();
     this->drawPlatform();
     this->drawBalls();
@@ -107,6 +114,14 @@ void GameScreen::drawScreenGrid()
     drawGrid(this->renderer,WINDOW_WIDTH,WINDOW_HEIGHT/4,*grid);
 }
 
+void GameScreen::drawWalls()
+{
+    for (auto it = walls.begin(); it != walls.end(); ++it)
+    {
+        drawWall(this->renderer, **it);
+    }
+}
+
 void GameScreen::update()
 {
     plat->movement();
@@ -115,10 +130,10 @@ void GameScreen::update()
     {
         (*it)->move(0.01);
         (*it)->resolve_collision(*plat);
-        for (auto it_brick = bricks.begin(); it_brick != bricks.end(); ++it_brick)
-        {
-            (*it)->resolve_collision(**it_brick);
-        }
         (*it)->resolve_collision(*grid);
+        for (auto it2 = walls.begin(); it2 != walls.end(); ++it2)
+        {
+            (*it)->resolve_collision(**it2);
+        }
     }
 }
